@@ -1,4 +1,4 @@
-package bg.su.fmi.st.project.ics.ical4j;
+package bg.su.fmi.st.project.ics.ical4j.convert;
 
 import bg.su.fmi.st.project.ics.ical4j.model.IEvent;
 import net.fortuna.ical4j.model.Date;
@@ -13,9 +13,14 @@ import net.fortuna.ical4j.model.property.TzId;
  *
  * @author Leni Kirilov
  */
-public class ICalAdapter {
+class ICalAdapter {
 
-    //TODO not implemented
+    /**
+     *  Convert Event to Ics Model VEvent object
+     *
+     * @param event - The Calendar++ event
+     * @return
+     */
     public VEvent convertEvent(IEvent event) {
 
         Date convertedStartDate = convertDate(event.getStartDate());

@@ -1,5 +1,6 @@
 package bg.su.fmi.st.project.ics.ical4j;
 
+import bg.su.fmi.st.project.ics.ical4j.convert.ICalConverter;
 import bg.su.fmi.st.project.ics.ical4j.model.StubEvent;
 
 /**

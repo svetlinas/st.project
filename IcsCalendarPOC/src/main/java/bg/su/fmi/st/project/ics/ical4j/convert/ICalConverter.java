@@ -1,4 +1,4 @@
-package bg.su.fmi.st.project.ics.ical4j;
+package bg.su.fmi.st.project.ics.ical4j.convert;
 
 import bg.su.fmi.st.project.ics.ical4j.model.IEvent;
 import java.io.File;
@@ -31,11 +31,24 @@ public class ICalConverter {
 
     private ICalAdapter adapter = new ICalAdapter();
 
-    public void convertEventToIcs(IEvent iEvent, String destinationFile) {
-        convertEventToIcs(iEvent, new File(destinationFile));
+    /**
+     *
+     * Convert to Ics file.
+     *
+     * @param iEvent - Calendar++ Event object
+     * @param destinationPath - destination where to write the .ics file
+     */
+    public void convertEventToIcs(IEvent iEvent, String destinationPath) {
+        convertEventToIcs(iEvent, new File(destinationPath));
     }
 
-    //TODO not implemented
+    /**
+     *
+     * Convert to Ics file.
+     *
+     * @param iEvent - Calendar++ Event object
+     * @param destination - destination where to write the .ics file
+     */
     public void convertEventToIcs(IEvent iEvent, File destination) {
         VEvent convertedEvent = adapter.convertEvent(iEvent);
         Calendar icsCalendar = createIcalCalendar(convertedEvent);
@@ -78,6 +91,7 @@ public class ICalConverter {
         Property version = PropertyFactoryRegistry.getInstance().createProperty(Property.VERSION);
         meeting.getProperties().add(version);
 
+        //TODO may be add attendees
 //        // add attendees..
 //        Attendee dev1 = new Attendee(URI.create("mailto:dev1@mycompany.com"));
 //        dev1.getParameters().add(Role.REQ_PARTICIPANT);

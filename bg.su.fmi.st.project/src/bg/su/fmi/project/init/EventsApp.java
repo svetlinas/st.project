@@ -1,6 +1,6 @@
 package bg.su.fmi.project.init;
 
-public class EventsApplication {
+public class EventsApp {
 
     private void testMethod(){}
 }

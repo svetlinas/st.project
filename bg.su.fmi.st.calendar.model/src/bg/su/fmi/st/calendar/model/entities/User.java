@@ -1,14 +1,15 @@
 package bg.su.fmi.st.calendar.model.entities;
 
-import java.util.List;
-
 import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 
+@Entity
 public class User {
 
 	@Id
@@ -25,7 +26,19 @@ public class User {
 
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
-	protected byte[] imageFile;
+	@Column(length = 100000)
+	protected byte[] picture;
+
+	public User() {
+	}
+
+	public User(String username, String password, String email, String name,
+			byte[] picture) {
+		this.username = username;
+		this.password = password;
+		this.name = name;
+		this.picture = picture;
+	}
 
 	public String getUsername() {
 		return username;
@@ -59,12 +72,12 @@ public class User {
 		this.name = name;
 	}
 
-	public byte[] getImageFile() {
-		return imageFile;
+	public byte[] getPicture() {
+		return picture;
 	}
 
-	public void setImageFile(byte[] imageFile) {
-		this.imageFile = imageFile;
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
 	}
 
 	public long getId() {

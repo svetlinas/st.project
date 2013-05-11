@@ -16,17 +16,19 @@ public class Event {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-//	@MapsId
+	// @MapsId
 	@ManyToOne
 	@JoinColumn(name = "organizer_id")
 	private User organizer;
-	
+
 	private String title;
-	
+
 	private String place;
-	
-	private Date date;
-	
+
+	private Date startDate;
+
+	private Date endDate;
+
 	private String details;
 
 	public User getOrganizer() {
@@ -53,12 +55,20 @@ public class Event {
 		this.place = place;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	public String getDetails() {
@@ -72,6 +82,5 @@ public class Event {
 	public long getId() {
 		return id;
 	}
-	
-}
 
+}

@@ -26,7 +26,7 @@ public class EventDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Event> getEvents() {
-		Query query = entityManager.createQuery("SELECT e from Events as e");
+		Query query = entityManager.createQuery("SELECT e from Event as e");
 		return query.getResultList();
 	}
 }

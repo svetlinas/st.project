@@ -36,6 +36,7 @@ public class User {
 			byte[] picture) {
 		this.username = username;
 		this.password = password;
+		this.email = email;
 		this.name = name;
 		this.picture = picture;
 	}

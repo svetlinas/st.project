@@ -16,7 +16,6 @@ public class Event {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	// @MapsId
 	@ManyToOne
 	@JoinColumn(name = "organizer_id")
 	private User organizer;

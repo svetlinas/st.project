@@ -26,7 +26,7 @@ public class UserDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<User> getUsers() {
-		Query query = entityManager.createQuery("SELECT u from Users as u");
+		Query query = entityManager.createQuery("SELECT u from User as u");
 		return query.getResultList();
 	}
 }

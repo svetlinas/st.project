@@ -14,6 +14,11 @@ import bg.su.fmi.st.calendar.model.manager.UserDAO;
 
 public class TestServlet extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@EJB
 	private UserDAO userDAO;
 

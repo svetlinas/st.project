@@ -20,7 +20,7 @@ public class EventDAO {
 		entityManager.persist(event);
 	}
 
-	public void deleteUser(Event event) {
+	public void deleteEvent(Event event) {
 		entityManager.remove(event);
 	}
 

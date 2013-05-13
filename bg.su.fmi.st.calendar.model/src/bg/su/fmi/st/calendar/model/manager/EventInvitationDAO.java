@@ -26,8 +26,7 @@ public class EventInvitationDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<EventInvitation> getEventInvitations() {
-		Query query = entityManager
-				.createQuery("SELECT e from EventInvitation as e");
+		Query query = entityManager.createQuery("SELECT e from EventInvitation as e");
 		return query.getResultList();
 	}
 }

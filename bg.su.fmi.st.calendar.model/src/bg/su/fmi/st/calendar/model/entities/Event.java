@@ -28,6 +28,8 @@ public class Event {
 
 	private Date endDate;
 
+	private String type;
+	
 	private String details;
 
 	public User getOrganizer() {
@@ -69,6 +71,14 @@ public class Event {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public String getDetails() {
 		return details;
@@ -80,6 +90,18 @@ public class Event {
 
 	public long getId() {
 		return id;
+	}
+
+	public Event(User organizer, String title, String place, Date startDate,
+			Date endDate, String type, String details) {
+		super();
+		this.organizer = organizer;
+		this.title = title;
+		this.place = place;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.type = type;
+		this.details = details;
 	}
 
 }

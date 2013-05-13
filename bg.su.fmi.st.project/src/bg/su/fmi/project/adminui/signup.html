@@ -2,11 +2,11 @@
 <html>
     <head>
         <title>Register</title>
-        <met charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <style type="text/css">
 body
     {
-        width: 100%;
+        width: 90%;
         background: #GGG;   
     }
 .header h1
@@ -17,7 +17,7 @@ body
 .register
 {
     width: 60%;
-    height: 400px;
+    height: 600px;
     background: #e3e3e3;
     margin-top: 20px;
     margin-left: 100px;
@@ -44,6 +44,8 @@ a{
     <body>
 		<div class="register">
 		<h1>Calendar++</h1>
+		<h1>Create User</h1>
+		<form name="createuser" action="users" method="post">
           <div class="c1">
             <p>&nbsp;</p>
             <table><tr align="right">
@@ -53,8 +55,9 @@ a{
 		    Email<br><input type="text" size=30 name="email"><br>
 		    Name<br><input type="text" size=30 name="name"><br>
 		    </tr></table>
-		   	<br><button style="height: 25px; width: 100px" onclick="window.location.href='success.jsp'">SignUp</button>
+		   	<br><button style="height: 25px; width: 100px" onclick="window.location.href='success.html'">SignUp</button>
           </div>
+          </form>
         </div>
     </body>
 </html>

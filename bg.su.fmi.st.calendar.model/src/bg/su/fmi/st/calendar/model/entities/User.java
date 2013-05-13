@@ -19,6 +19,8 @@ public class User {
 	private String username;
 
 	private String password;
+	
+	private String confirmPassword;
 
 	private String email;
 
@@ -32,10 +34,11 @@ public class User {
 	public User() {
 	}
 
-	public User(String username, String password, String email, String name,
-			byte[] picture) {
+	public User(String username, String password, String confirmPassword, String email, String name, byte[] picture) {
+		super();
 		this.username = username;
 		this.password = password;
+		this.confirmPassword = confirmPassword;
 		this.email = email;
 		this.name = name;
 		this.picture = picture;
@@ -56,6 +59,17 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
 
 	public String getEmail() {
 		return email;

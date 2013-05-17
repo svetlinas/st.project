@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Create Event</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <style type="text/css">
+body
+    {
+        width: 90%;
+        background: #GGG;   
+    }
+.header h1
+{
+    font-size: 55px;
+    text-shadow: 0px 0px 5px green;
+}
+.events
+{
+    width: 60%;
+    height: 600px;
+    background: #e3e3e3;
+    margin-top: 20px;
+    margin-left: 100px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px green;
+    font-family: serif;
+    /*line-height: 400px;*/
+}
+
+.c1{
+    margin-left: 80px;
+    margin-top: 40px;
+}
+button{
+    margin-right: 350px;
+}
+
+a{
+    text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+	<div class="events">
+	<h1>Calendar++</h1>
+	<h1>Create Event</h1>
+	<form name="createevent" action="events" method="post">
+	<div class="c1">
+	<p>&nbsp;</p>
+    <table><tr align="right">
+		Event Title:<br><input type="text" size=30 name="title"><br>
+		Event Place:<br><input type="text" size=30 name="place"><br>
+		Event Starts:<br><input type="datetime" size=30 name="startDate"><br>
+		Event Ends:<br><input type="datetime" size=30 name="endDate"><br>
+		Event Type:<br> 
+		<input type="radio" name="type" value="private">Private
+		<input type="radio" name="type"value="public">Public<br> 
+		Event Details:<br><textarea name="details" rows="4" cols="50"></textarea><br>
+		<input type="submit" value="Submit">
+		</tr></table>
+	</div>
+	</form>
+	</div>
+</body>
+</html>

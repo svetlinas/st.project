@@ -11,6 +11,7 @@ public class RemoteApplication extends Application {
 		Set<Class<?>> s = new HashSet<Class<?>>();
 		s.add(Events.class);
 		s.add(Users.class);
+		s.add(Invitations.class);
 		return s;
 	}
 

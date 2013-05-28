@@ -18,6 +18,7 @@ public class Test {
 		new Test().readDataBase();
 	}
 
+	@SuppressWarnings("deprecation")
 	public void readDataBase() throws Exception {
 		try {
 			// This will load the MySQL driver, each DB has its own driver

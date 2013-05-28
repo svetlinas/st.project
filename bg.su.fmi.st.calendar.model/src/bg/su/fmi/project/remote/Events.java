@@ -1,6 +1,5 @@
 package bg.su.fmi.project.remote;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

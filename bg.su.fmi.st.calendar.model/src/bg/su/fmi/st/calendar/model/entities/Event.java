@@ -77,6 +77,10 @@ public class Event {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public static String dateToString(Date date){
+		return df.format(date);
+	}
 
 	public User getOrganizer() {
 		return organizer;
@@ -109,6 +113,11 @@ public class Event {
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
+	
+	public void setStartDate(String startDateStr) {
+		this.startDate = parseDate(startDateStr);
+	}
+
 
 	public Date getEndDate() {
 		return endDate;
@@ -117,6 +126,11 @@ public class Event {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+	
+	public void setEndDate(String endDateStr) {
+		this.endDate = parseDate(endDateStr);
+	}
+	
 	
 	public String getType() {
 		return type;

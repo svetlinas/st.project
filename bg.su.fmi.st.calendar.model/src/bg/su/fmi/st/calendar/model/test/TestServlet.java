@@ -2,8 +2,9 @@ package bg.su.fmi.st.calendar.model.test;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -18,9 +19,6 @@ import bg.su.fmi.st.calendar.model.manager.UserDAO;
 
 public class TestServlet extends HttpServlet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@EJB
@@ -32,8 +30,7 @@ public class TestServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		userDAO.addUser(new User("ivan.ivanov", "passwd", "passwd",
-				"ivan@ivanov@gmail.com", "Ivan Ivanov", null));
+		userDAO.addUser(new User("ivan.ivanov", "passwd", "passwd", "ivan@ivanov@gmail.com", "Ivan Ivanov", null));
 		
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
@@ -42,18 +39,52 @@ public class TestServlet extends HttpServlet {
 		pw.println("<body>");
 		pw.println("<h1>Hello World</h1>");
 		
-		pw.println("Users count: " + userDAO.getUsers().size());
-		displayUsers(pw);
+//		pw.println("Users count: " + userDAO.getUsers().size());
+//		displayUsers(pw);
+//		
+//		displayEvents(pw);
+//		testRemoveEvents(pw);
+		testEditEvents(pw);
 		
-		displayEvents(pw);
-		testRemoveEvents(pw);
+//		displaySomeEvents(pw);
 		
 		pw.println("<hr/>");
 		pw.println("</body></html>");
 	}
 	
+	private void testEditEvents(PrintWriter pw) {
+		// TODO Auto-generated method stub
+		Event testEvent = new Event(
+				null, 
+				"eventTitle5", 
+				"eventPlace 5", 
+				"2013-06-12T12:00:00", 
+				"2013-07-12T12:00:00", 
+				"public", 
+				"eventDetails5");
+		
+		pw.printf("Creating test event %s <br>", testEvent.toString());
+		eventsDAO.addEvent(testEvent);
+
+		testEvent.setStartDate("2014-06-12T12:00:00");
+		testEvent.setEndDate("2014-07-12T12:00:00");
+		testEvent.setPlace("changed" + testEvent.getPlace());
+		testEvent.setTitle("changed" + testEvent.getTitle());
+		testEvent.setType("changed" + testEvent.getType());
+		testEvent.setDetails("changed" + testEvent.getDetails());
+		
+		pw.printf("Editing event ... <br>");
+		eventsDAO.editEvent(testEvent);
+		
+		pw.printf("Check changed events...<br>");
+		displayEvents(pw);
+		
+//		Long id = testEvent.getId();
+//		pw.printf("Removing test event with ID %d <br>", id);
+//		eventsDAO.deleteEvent(Arrays.asList(id));
+	}
+
 	private void testRemoveEvents(PrintWriter pw) {
-		//create event
 		Event testEvent = new Event(
 				null, 
 				"eventTitle5", 
@@ -91,4 +122,14 @@ public class TestServlet extends HttpServlet {
 		}
 	}
 	
+	private void displaySomeEvents(PrintWriter pw){
+		List<Long> ids = new ArrayList<Long>();
+		ids.add(new Long(2));
+
+		pw.print("<br> Displaying events<br>");
+		for (Event event : eventsDAO.getEvents(ids)) {
+			pw.println(event.toString());
+			pw.print("<br>");
+		}
+	}
 }

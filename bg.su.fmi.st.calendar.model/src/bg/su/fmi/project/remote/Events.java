@@ -1,8 +1,6 @@
 package bg.su.fmi.project.remote;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -12,6 +10,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
 
 import bg.su.fmi.st.calendar.model.entities.Event;
 import bg.su.fmi.st.calendar.model.manager.EventDAO;
@@ -30,7 +29,8 @@ public class Events {
 
 	@POST
 	@Consumes("application/x-www-form-urlencoded")
-	public void createEvent(@FormParam("title") String title,
+	public void createEvent(
+			@FormParam("title") String title,
 			@FormParam("place") String place,
 			@FormParam("startDate") String startDate,
 			@FormParam("endDate") String endDate,
@@ -48,7 +48,9 @@ public class Events {
 	}
 	
 	@DELETE
-	public void removeEvents(List<Long> ids) {
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public void removeEvents(@FormParam("ids") List<Long> ids) {
 		eventDAO.deleteEvent(ids);
 	}
+	
 }

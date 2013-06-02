@@ -3,7 +3,6 @@ package bg.su.fmi.st.calendar.model.test;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -35,8 +34,8 @@ public class TestServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// userDAO.addUser(new User("ivan.ivanov", "passwd",
-		// "ivan@ivanov@gmail.com", "Ivan Ivanov", null));
+		 userDAO.addUser(new User("ivan.ivanov", "passwd",
+		 "ivan@ivanov@gmail.com", "Ivan Ivanov", null));
 
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
@@ -53,6 +52,8 @@ public class TestServlet extends HttpServlet {
 		testEditEvents(pw);
 
 		displaySomeEvents(pw);
+		
+		testEventInvitations(pw);
 
 		pw.println("<hr/>");
 		pw.println("</body></html>");
@@ -78,22 +79,56 @@ public class TestServlet extends HttpServlet {
 		testEvent.setType("changed" + testEvent.getType());
 		testEvent.setDetails("changed" + testEvent.getDetails());
 
-		// inviteUserToEvent(testEvent);
+		 inviteUserToEvent(testEvent);
 
 		pw.printf("Editing event ... <br>");
 		eventsDAO.updateEvent(testEvent);
+		
+		invitationsDAO.invite(testEvent);
 
 		pw.printf("Check changed events...<br>");
 		displayEvents(pw);
 
 		Long id = testEvent.getId();
 		pw.printf("Removing test event with ID %d <br>", id);
-		eventsDAO.deleteEvent(id);
+//		eventsDAO.deleteEvent(id);
+	}
+	
+	private void testEventInvitations(PrintWriter pw) {
+		
+		Event firstEvent = new Event(null, "Sport1", "Mladost1",
+				"2013-06-12T12:00:00", "2013-07-12T12:00:00", "private",
+				"details");
+		eventsDAO.addEvent(firstEvent);
+		
+		User firstUser = new User("kkuncheva", "passwd", "kunka.kuncheva@gmail.com",
+				"Kunka Kuncheva", null);
+		userDAO.addUser(firstUser);
+		
+		EventInvitation firstInvitation = new EventInvitation(firstEvent, firstUser);
+		invitationsDAO.addEventInvitation(firstInvitation);
+		
+		Event secondEvent = new Event(null, "Sport1", "Mladost1",
+				"2013-06-12T12:00:00", "2013-07-12T12:00:00", "private",
+				"details");
+		eventsDAO.addEvent(secondEvent);
+		
+		User secondUser = new User("kkuncheva", "passwd", "kunka.kuncheva@gmail.com",
+				"Kunka Kuncheva", null);
+		userDAO.addUser(secondUser);
+		
+		EventInvitation secondInvitation = new EventInvitation(secondEvent, secondUser);
+		invitationsDAO.addEventInvitation(secondInvitation);
+		
+		invitationsDAO.acceptInvitation(firstInvitation);
+		
+		invitationsDAO.declineInvitation(secondInvitation);
+		
 	}
 
 	private void inviteUserToEvent(Event testEvent) {
-		User user = new User("ivan.ivanov", "passwd", "nvvalchev@gmail.com",
-				"Nikolay Valchev", null);
+		User user = new User("kkuncheva", "passwd", "kunka.kuncheva@gmail.com",
+				"Kunka Kuncheva", null);
 		userDAO.addUser(user);
 		invitationsDAO.addEventInvitation(new EventInvitation(testEvent, user));
 	}

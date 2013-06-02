@@ -3,19 +3,29 @@ package bg.su.fmi.st.calendar.model.manager;
 import java.util.Collection;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import bg.su.fmi.st.calendar.model.entities.Event;
 import bg.su.fmi.st.calendar.model.entities.EventInvitation;
+import bg.su.fmi.st.calendar.model.entities.EventInvitation.InvitationResponse;
+import bg.su.fmi.st.calendar.model.entities.User;
+import bg.su.fmi.st.calendar.utils.NotificationService;
 
 @Stateless
 public class EventInvitationDAO {
 
 	@PersistenceContext(unitName = "sport-events-organizer-unit")
 	private EntityManager entityManager;
+	
+	@EJB
+	private NotificationService notificationService;
 
 	public void addEventInvitation(EventInvitation eventInvitation) {
 		entityManager.persist(eventInvitation);
@@ -39,4 +49,22 @@ public class EventInvitationDAO {
 		query.setParameter(1, event);
 		return query.getResultList();
 	}
+	
+	public void invite(Event event) {
+		notificationService.notifyUserForInvitation(event);
+	}
+	
+	public void acceptInvitation(EventInvitation eventInvitation) {
+		EventInvitation invitation = entityManager.find(EventInvitation.class, eventInvitation.getId());
+		invitation.setResponse(InvitationResponse.YES);
+//		return invitation;
+	}
+	
+	public void declineInvitation(EventInvitation eventInvitation) {
+		EventInvitation invitation = entityManager.find(EventInvitation.class, eventInvitation.getId());
+		invitation.setResponse(InvitationResponse.NO);
+		invitation.setComment("I cant come tommorow");
+//		return invitation;
+	}
+
 }

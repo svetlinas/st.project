@@ -1,16 +1,27 @@
 package bg.su.fmi.project.remote;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 
 import bg.su.fmi.st.calendar.mail.MailData;
 import bg.su.fmi.st.calendar.mail.MailSender;
+import bg.su.fmi.st.calendar.model.entities.Event;
+import bg.su.fmi.st.calendar.model.entities.EventInvitation;
+import bg.su.fmi.st.calendar.model.manager.EventDAO;
+import bg.su.fmi.st.calendar.model.manager.EventInvitationDAO;
 
 /**
  * REST resource responsible for interactions with invitations.
@@ -20,6 +31,9 @@ import bg.su.fmi.st.calendar.mail.MailSender;
  */
 @Path("/invitations")
 public class Invitations {
+
+	@EJB
+	EventInvitationDAO invitationDao;
 
 	private static final String MAIL_INVITATION_SUBJECT = "Invitation for registration in Sport Events Organizer.";
 
@@ -33,7 +47,7 @@ public class Invitations {
 			@FormParam("toAddress") String toAddress) {
 		String baseUri = uriInfo.getBaseUri().toString();
 		String mailText = MessageFormat.format(MAIL_INVITATION_CONTENT,
-				"DEFAULT_USER", baseUri + "signup.html"); // TODO: Valid user
+				"DEFAULT_USER", baseUri + "/signup.html"); // TODO: Valid user
 															// and URL
 		MailData mailData = new MailData();
 		mailData.setHost(HOST);

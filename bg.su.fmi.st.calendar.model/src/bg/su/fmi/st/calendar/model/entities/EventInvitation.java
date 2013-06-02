@@ -8,8 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
+@XmlRootElement(name="EventInvitation")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class EventInvitation {
 
 	public enum InvitationResponse {
@@ -26,18 +32,23 @@ public class EventInvitation {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@XmlElement(name="id")
 	private long id;
 
 	@ManyToOne
+	@XmlElement(name="user")
 	private User invitedUser;
 
 	@ManyToOne
+	@XmlElement(name="event")
 	private Event event;
 
 	@Column(name = "INVITATION_RESPONSE")
 	@Enumerated(EnumType.STRING)
+	@XmlElement(name="response")
 	private InvitationResponse response;
 
+	@XmlElement(name="comment")
 	private String comment;
 
 	public User getInvitedUser() {

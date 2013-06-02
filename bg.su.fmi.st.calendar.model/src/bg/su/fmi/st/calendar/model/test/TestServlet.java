@@ -30,7 +30,7 @@ public class TestServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		userDAO.addUser(new User("ivan.ivanov", "passwd", "passwd", "ivan@ivanov@gmail.com", "Ivan Ivanov", null));
+		userDAO.addUser(new User("ivan.ivanov", "passwd", "ivan@ivanov@gmail.com", "Ivan Ivanov", null));
 		
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();

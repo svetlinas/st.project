@@ -29,11 +29,15 @@ public class Users {
 	@Consumes("application/x-www-form-urlencoded")
 	public void addUser(@FormParam("username") String username,
 			@FormParam("password") String password,
-			@FormParam("confirmPassword") String confirmPassword,
+			@FormParam("cpassword") String cpassword,
 			@FormParam("email") String email,
 			@FormParam("name") String name,
 			@FormParam("picture") byte[] picture) {
-		User newUser = new User(username, password, confirmPassword, email, name, picture);
+		if (!password.equals(cpassword)) {
+			//TODO print error message
+			return;
+		}
+		User newUser = new User(username, password, email, name, picture);
 		userDAO.addUser(newUser);
 	}
 	

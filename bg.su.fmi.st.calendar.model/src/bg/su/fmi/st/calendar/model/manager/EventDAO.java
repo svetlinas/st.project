@@ -3,19 +3,23 @@ package bg.su.fmi.st.calendar.model.manager;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.Stateful;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 
 import bg.su.fmi.st.calendar.model.entities.Event;
+import bg.su.fmi.st.calendar.utils.NotificationService;
 
-@Stateful
+@Stateless
 public class EventDAO {
 
-	@PersistenceContext(unitName = "sport-events-organizer-unit", type = PersistenceContextType.TRANSACTION)
+	@PersistenceContext(unitName = "sport-events-organizer-unit")
 	private EntityManager entityManager;
+	
+	@EJB
+	private NotificationService notificationService;
 
 	public Event addEvent(Event event) {
 		entityManager.persist(event);
@@ -77,6 +81,7 @@ public class EventDAO {
 		event.setTitle(changedEvent.getTitle());
 		event.setType(changedEvent.getType());
 		
+		notificationService.notifyUsersForChangedEvent(event);
 		return event;
 	}
 }

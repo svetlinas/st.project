@@ -16,6 +16,14 @@ public class EventInvitation {
 		YES, NO
 	}
 
+	public EventInvitation() {
+	}
+
+	public EventInvitation(Event event, User user) {
+		this.event = event;
+		this.invitedUser = user;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;

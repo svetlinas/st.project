@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bg.su.fmi.st.calendar.model.entities.Event;
+import bg.su.fmi.st.calendar.model.entities.EventInvitation;
 import bg.su.fmi.st.calendar.model.entities.User;
 import bg.su.fmi.st.calendar.model.manager.EventDAO;
+import bg.su.fmi.st.calendar.model.manager.EventInvitationDAO;
 import bg.su.fmi.st.calendar.model.manager.UserDAO;
 
 public class TestServlet extends HttpServlet {
@@ -27,31 +29,35 @@ public class TestServlet extends HttpServlet {
 	@EJB
 	private EventDAO eventsDAO;
 
+	@EJB
+	private EventInvitationDAO invitationsDAO;
+
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-//		userDAO.addUser(new User("ivan.ivanov", "passwd", "ivan@ivanov@gmail.com", "Ivan Ivanov", null));
-		
+
+		// userDAO.addUser(new User("ivan.ivanov", "passwd",
+		// "ivan@ivanov@gmail.com", "Ivan Ivanov", null));
+
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
 		pw.println("<html>");
 		pw.println("<head><title>Hello World</title></title>");
 		pw.println("<body>");
 		pw.println("<h1>Hello World</h1>");
-		
+
 		pw.println("Users count: " + userDAO.getUsers().size());
 		displayUsers(pw);
-		
+
 		displayEvents(pw);
 		testRemoveEvents(pw);
 		testEditEvents(pw);
-		
+
 		displaySomeEvents(pw);
-		
+
 		pw.println("<hr/>");
 		pw.println("</body></html>");
 	}
-	
+
 	private void testEditEvents(PrintWriter pw) {
 		Event testEvent = new Event(
 				null, 
@@ -61,7 +67,7 @@ public class TestServlet extends HttpServlet {
 				"2013-07-12T12:00:00", 
 				"public", 
 				"eventDetails5");
-		
+
 		pw.printf("Creating test event %s <br>", testEvent.toString());
 		eventsDAO.addEvent(testEvent);
 
@@ -71,57 +77,61 @@ public class TestServlet extends HttpServlet {
 		testEvent.setTitle("changed" + testEvent.getTitle());
 		testEvent.setType("changed" + testEvent.getType());
 		testEvent.setDetails("changed" + testEvent.getDetails());
-		
+
+		// inviteUserToEvent(testEvent);
+
 		pw.printf("Editing event ... <br>");
 		eventsDAO.updateEvent(testEvent);
-		
+
 		pw.printf("Check changed events...<br>");
 		displayEvents(pw);
-		
+
 		Long id = testEvent.getId();
 		pw.printf("Removing test event with ID %d <br>", id);
 		eventsDAO.deleteEvent(id);
+	}
+
+	private void inviteUserToEvent(Event testEvent) {
+		User user = new User("ivan.ivanov", "passwd", "nvvalchev@gmail.com",
+				"Nikolay Valchev", null);
+		userDAO.addUser(user);
+		invitationsDAO.addEventInvitation(new EventInvitation(testEvent, user));
 	}
 
 	private void testRemoveEvents(PrintWriter pw) {
-		Event testEvent = new Event(
-				null, 
-				"eventTitle5", 
-				"eventPlace 5", 
-				"2013-06-12T12:00:00", 
-				"2013-07-12T12:00:00", 
-				"public", 
+		Event testEvent = new Event(null, "eventTitle5", "eventPlace 5",
+				"2013-06-12T12:00:00", "2013-07-12T12:00:00", "public",
 				"eventDetails5");
-		
+
 		pw.printf("Creating test event %s <br>", testEvent.toString());
 		eventsDAO.addEvent(testEvent);
-		
+
 		displayEvents(pw);
-		
+
 		Long id = testEvent.getId();
-//		Long id = new Long(3);
-		
+		// Long id = new Long(3);
+
 		pw.printf("Removing test event with ID %d <br>", id);
 		eventsDAO.deleteEvent(id);
 		displayEvents(pw);
 	}
 
-	private void displayUsers(PrintWriter pw){
+	private void displayUsers(PrintWriter pw) {
 		for (User user : userDAO.getUsers()) {
 			pw.println(user.toString());
 			pw.print("<br>");
 		}
 	}
-	
-	private void displayEvents(PrintWriter pw){
+
+	private void displayEvents(PrintWriter pw) {
 		pw.print("<br> Displaying all events<br>");
 		for (Event event : eventsDAO.getEvents()) {
 			pw.println(event.toString());
 			pw.print("<br>");
 		}
 	}
-	
-	private void displaySomeEvents(PrintWriter pw){
+
+	private void displaySomeEvents(PrintWriter pw) {
 		List<Long> ids = new ArrayList<Long>();
 		ids.add(new Long(2));
 

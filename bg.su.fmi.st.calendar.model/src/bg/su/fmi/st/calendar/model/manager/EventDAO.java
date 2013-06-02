@@ -1,6 +1,7 @@
 package bg.su.fmi.st.calendar.model.manager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.ejb.Stateful;
@@ -22,8 +23,8 @@ public class EventDAO {
 		return event;
 	}
 
-	public void deleteEvent(List<Long> ids) {
-		List<Event> eventsToBeRemoved = getEvents(ids);
+	public void deleteEvent(Long id) {
+		List<Event> eventsToBeRemoved = getEvents(Arrays.asList(id));
 		for (Event event : eventsToBeRemoved) {
 			entityManager.remove(event);
 		}
@@ -35,8 +36,13 @@ public class EventDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Event> getEvents(List<Long> ids) {
-		Query query = entityManager.createQuery("SELECT e from Event as e WHERE ID in "
-						+ convertToSqlString(ids));
+		String idSQL = "";
+		if(ids.size() == 0 || ids.get(0) == null){
+			idSQL = "";
+		}else{
+			idSQL = "WHERE ID in " + convertToSqlString(ids);
+		}
+		Query query = entityManager.createQuery("SELECT e from Event as e " + idSQL);
 		return query.getResultList();
 	}
 

@@ -53,7 +53,6 @@ public class TestServlet extends HttpServlet {
 	}
 	
 	private void testEditEvents(PrintWriter pw) {
-		// TODO Auto-generated method stub
 		Event testEvent = new Event(
 				null, 
 				"eventTitle5", 
@@ -81,7 +80,7 @@ public class TestServlet extends HttpServlet {
 		
 		Long id = testEvent.getId();
 		pw.printf("Removing test event with ID %d <br>", id);
-		eventsDAO.deleteEvent(Arrays.asList(id));
+		eventsDAO.deleteEvent(id);
 	}
 
 	private void testRemoveEvents(PrintWriter pw) {
@@ -103,7 +102,7 @@ public class TestServlet extends HttpServlet {
 //		Long id = new Long(3);
 		
 		pw.printf("Removing test event with ID %d <br>", id);
-		eventsDAO.deleteEvent(Arrays.asList(id));
+		eventsDAO.deleteEvent(id);
 		displayEvents(pw);
 	}
 

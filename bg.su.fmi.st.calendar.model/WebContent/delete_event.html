@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-<title>Send Invitation</title>
+<title>Delete Event</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css">
 body {
@@ -28,7 +28,6 @@ body {
 
 .c1 {
 	margin-left: 80px;
-	margin-top: 40px;
 }
 
 button {
@@ -44,26 +43,27 @@ a {
 <body>
 	<div class="events">
 		<h1>Calendar++</h1>
-		<h1>Send Invitation</h1>
-		<form name="sendinvitation" action="invitations" method="post">
+		<h1>Delete Event</h1>
+		<form name="removeEvent" action="events" method="delete">
 			<div class="c1">
-				<p>&nbsp;</p>
 				<table>
 					<tr align="right">
-						E-mail:
-						<input type="email" name="toAddress">
+						Event ID:
 						<br>
-						<input type="submit" value="Send">
+						<input type="text" size=30 name="id">
+						<br>
+						<input type="submit" value="Submit">
 					</tr>
 				</table>
 			</div>
-			<form name="goHome" action="events.html" method="get">
-				<div class="c1">
-					<input type="submit" value="GO HOME">
-				</div>
-			</form>
 		</form>
-
+		<br>
+		
+		<form name="goHome" action="index.html" method="get">
+			<div class="c1">
+				<input type="submit" value="GO HOME">
+			</div>
+		</form>
 	</div>
 </body>
 </html>

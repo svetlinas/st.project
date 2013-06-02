@@ -57,11 +57,9 @@ public class Events {
 	}
 	
 	@GET
-	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<Event> getEvents(
-			@PathParam("id")
 			@FormParam("id") 
 			List<Long> id) {
 		return eventDAO.getEvents(id);
@@ -70,10 +68,10 @@ public class Events {
 	@DELETE
 	@Path("{id}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public void removeEvents(@PathParam("id") Long id) {
-		List<Long> ids = new ArrayList<Long>();
-		ids.add(id);
-		eventDAO.deleteEvent(ids);
+	public void removeEvent(
+			@FormParam("id")
+			@PathParam("id") Long id) {
+		eventDAO.deleteEvent(id);
 	}
 
 	@PUT 

@@ -30,7 +30,7 @@ public class TestServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		userDAO.addUser(new User("ivan.ivanov", "passwd", "ivan@ivanov@gmail.com", "Ivan Ivanov", null));
+//		userDAO.addUser(new User("ivan.ivanov", "passwd", "ivan@ivanov@gmail.com", "Ivan Ivanov", null));
 		
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
@@ -39,14 +39,14 @@ public class TestServlet extends HttpServlet {
 		pw.println("<body>");
 		pw.println("<h1>Hello World</h1>");
 		
-//		pw.println("Users count: " + userDAO.getUsers().size());
-//		displayUsers(pw);
-//		
-//		displayEvents(pw);
-//		testRemoveEvents(pw);
+		pw.println("Users count: " + userDAO.getUsers().size());
+		displayUsers(pw);
+		
+		displayEvents(pw);
+		testRemoveEvents(pw);
 		testEditEvents(pw);
 		
-//		displaySomeEvents(pw);
+		displaySomeEvents(pw);
 		
 		pw.println("<hr/>");
 		pw.println("</body></html>");
@@ -74,14 +74,14 @@ public class TestServlet extends HttpServlet {
 		testEvent.setDetails("changed" + testEvent.getDetails());
 		
 		pw.printf("Editing event ... <br>");
-		eventsDAO.editEvent(testEvent);
+		eventsDAO.updateEvent(testEvent);
 		
 		pw.printf("Check changed events...<br>");
 		displayEvents(pw);
 		
-//		Long id = testEvent.getId();
-//		pw.printf("Removing test event with ID %d <br>", id);
-//		eventsDAO.deleteEvent(Arrays.asList(id));
+		Long id = testEvent.getId();
+		pw.printf("Removing test event with ID %d <br>", id);
+		eventsDAO.deleteEvent(Arrays.asList(id));
 	}
 
 	private void testRemoveEvents(PrintWriter pw) {

@@ -17,8 +17,9 @@ public class EventDAO {
 	@PersistenceContext(unitName = "sport-events-organizer-unit", type = PersistenceContextType.TRANSACTION)
 	private EntityManager entityManager;
 
-	public void addEvent(Event event) {
+	public Event addEvent(Event event) {
 		entityManager.persist(event);
+		return event;
 	}
 
 	public void deleteEvent(List<Long> ids) {
@@ -64,7 +65,7 @@ public class EventDAO {
 		return query.getResultList();
 	}
 
-	public void editEvent(Event changedEvent) {
+	public Event updateEvent(Event changedEvent) {
 
 		Event event = entityManager.find(Event.class, changedEvent.getId());
 
@@ -75,5 +76,7 @@ public class EventDAO {
 		event.setStartDate(changedEvent.getStartDate());
 		event.setTitle(changedEvent.getTitle());
 		event.setType(changedEvent.getType());
+		
+		return event;
 	}
 }

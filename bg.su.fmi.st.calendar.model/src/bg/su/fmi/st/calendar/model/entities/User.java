@@ -45,6 +45,12 @@ public class User {
 		this.name = name;
 		this.picture = picture;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("User id: %s; Username: %s; Name: %s; e-mail: %s",
+				this.id, this.username, this.name, this.email);
+	}
 
 	public String getUsername() {
 		return username;

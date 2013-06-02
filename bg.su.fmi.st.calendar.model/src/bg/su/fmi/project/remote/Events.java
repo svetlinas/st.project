@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -35,31 +36,19 @@ public class Events {
 			@FormParam("endDate") String endDate,
 			@FormParam("type") String type, @FormParam("details") String details)
 			throws ParseException {
-		Date eventStartDate = parseDate(startDate);
-		Date eventEndDate = parseDate(endDate);
-		Event newEvent = new Event(null, title, place, eventStartDate,
-				eventEndDate, type, details); // TODO organizer is null.
+		
+		// TODO organizer is null.
+		Event newEvent = new Event(null, title, place, startDate, endDate, type, details); 
 		eventDAO.addEvent(newEvent);
-	}
-
-	/**
-	 * 
-	 * @param dateString
-	 *            - the date in fomat YYYY-MM-DDTHH:MM
-	 * @return
-	 */
-	private Date parseDate(String dateString) {
-		String parsableDateString = dateString.replace("T", " ");
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		try {
-			return dateFormat.parse(parsableDateString);
-		} catch (ParseException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 	@GET
 	public List<Event> getEvents() {
 		return eventDAO.getEvents();
+	}
+	
+	@DELETE
+	public void removeEvents(List<Long> ids) {
+		eventDAO.deleteEvent(ids);
 	}
 }

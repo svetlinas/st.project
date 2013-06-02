@@ -103,5 +103,8 @@ public class Event {
 		this.type = type;
 		this.details = details;
 	}
+	
+	public Event() {
+	}
 
 }

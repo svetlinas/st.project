@@ -11,28 +11,42 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
+@XmlRootElement(name="Event")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Event {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@XmlElement(name="id")
 	private long id;
 
 	@ManyToOne
 	@JoinColumn(name = "organizer_id")
+	@XmlElement(name="organizer")
 	private User organizer;
 
+	@XmlElement(name="title")
 	private String title;
 
+	@XmlElement(name="place")
 	private String place;
 
+	@XmlElement(name="startDate")
 	private Date startDate;
 
+	@XmlElement(name="endDate")
 	private Date endDate;
 
+	@XmlElement(name="type")
 	private String type;
 	
+	@XmlElement(name="details")
 	private String details;
 	
 	public static String EVENT_DATE_FORMAT = "yyyy-MM-dd HH:mm";

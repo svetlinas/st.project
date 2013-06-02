@@ -47,10 +47,13 @@ public class Events {
 		return eventDAO.getEvents();
 	}
 	
+	//TODO  remove rest not tested
 	@DELETE
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void removeEvents(@FormParam("ids") List<Long> ids) {
 		eventDAO.deleteEvent(ids);
 	}
+	
+	//TODO edit for rest not tested
 	
 }

@@ -29,7 +29,6 @@ body
 
 .c1{
     margin-left: 80px;
-    margin-top: 40px;
 }
 button{
     margin-right: 350px;
@@ -47,7 +46,6 @@ a{
 	<h1>Create Event</h1>
 	<form name="createevent" action="events" method="post">
 	<div class="c1">
-	<p>&nbsp;</p>
     <table><tr align="right">
 		Event Title:<br><input type="text" size=30 name="title"><br>
 		Event Place:<br><input type="text" size=30 name="place"><br>
@@ -60,6 +58,16 @@ a{
 		<input type="submit" value="Submit">
 		</tr></table>
 	</div>
+	</form>
+	<form name="viewUsers" action="users" method="get">
+    	<div class="c1">
+        	<input type="submit" value="View All Users">
+        </div>
+	</form>
+	<form name="viewEvents" action="events" method="get">
+       <div class="c1">
+         	<input type="submit" value="View All Events">
+       </div>
 	</form>
 	</div>
 </body>

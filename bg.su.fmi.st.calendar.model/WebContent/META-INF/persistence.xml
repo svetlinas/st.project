@@ -8,6 +8,7 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:openejb/Resource/sports</jta-data-source>
 		<class>bg.su.fmi.st.calendar.model.entities.User</class>
+		<!-- <class>bg.su.fmi.st.calendar.model.entities.UserGroup</class> -->
 		<class>bg.su.fmi.st.calendar.model.entities.Event</class>
 		<class>bg.su.fmi.st.calendar.model.entities.EventInvitation</class>
 		<properties>

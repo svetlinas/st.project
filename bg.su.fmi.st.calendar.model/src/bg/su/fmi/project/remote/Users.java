@@ -1,5 +1,6 @@
 package bg.su.fmi.project.remote;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -8,8 +9,6 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import bg.su.fmi.st.calendar.model.entities.User;
 import bg.su.fmi.st.calendar.model.manager.UserDAO;
@@ -40,6 +39,7 @@ public class Users {
 			return;
 		}
 		User newUser = new User(username, password, email, name, picture);
+		newUser.setGroups(Arrays.asList(User.Group.USER));
 		userDAO.addUser(newUser);
 	}
 	

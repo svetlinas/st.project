@@ -6,12 +6,12 @@
 	<display-name>bg.su.fmi.st.calendar.model</display-name>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+
+	<session-config>
+		<session-timeout>10</session-timeout>
+		<tracking-mode>COOKIE</tracking-mode>
+	</session-config>
 
 	<servlet>
 		<servlet-name>TestServlet</servlet-name>
@@ -22,6 +22,58 @@
 		<url-pattern>/test</url-pattern>
 	</servlet-mapping>
 
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Authenticated part</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>USER</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>For everyone</web-resource-name>
+			<url-pattern>/signup.html</url-pattern>
+		</web-resource-collection>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>For everyone</web-resource-name>
+			<url-pattern>/users</url-pattern>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>For everyone</web-resource-name>
+			<url-pattern>/users</url-pattern>
+			<http-method>GET</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>USER</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-role>
+		<description>Users</description>
+		<role-name>USER</role-name>
+	</security-role>
+	<security-role>
+		<description>Administrators</description>
+		<role-name>ADMIN</role-name>
+	</security-role>
+
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/login.html</form-login-page>
+			<form-error-page>/login-failed.html</form-error-page>
+		</form-login-config>
+	</login-config>
 
 	<resource-ref>
 		<description>MySQL Datasource</description>

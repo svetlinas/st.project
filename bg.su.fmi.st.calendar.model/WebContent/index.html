@@ -1,111 +1,29 @@
 <!doctype html>
 <html>
 <head>
-<title>CALENDAR++ HOME</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<style type="text/css">
-body {
-	width: 90%;
-	background: #GGG;
-}
-
-.header h1 {
-	font-size: 55px;
-	text-shadow: 0px 0px 5px green;
-}
-
-.events {
-	width: 60%;
-	height: 600px;
-	background: #e3e3e3;
-	margin-top: 20px;
-	margin-left: 100px;
-	border-radius: 20px;
-	box-shadow: 0px 0px 10px green;
-	font-family: serif;
-	/*line-height: 400px;*/
-}
-
-.c1 {
-	margin-left: 80px;
-}
-
-button {
-	margin-right: 350px;
-}
-
-a {
-	text-decoration: none;
-}
-</style>
+<link href="css/style.css" rel="stylesheet" />
+<title>Sport Events Organizer</title>
 </head>
-
 <body>
-	<div class="success">
-		<h1>Calendar++</h1>
-		<div class="c1">
-			<p>&nbsp;</p>
-			<p>&nbsp;</p>
-			<h1>Welcome!</h1>
-			<br>
-			<form name="createuser" action="signup.html" method="get">
-				<div class="c1">
-					<input type="submit" value="Create new user">
-				</div>
-			</form>
-			<br>
+	<header>
+		<h1>Sport Events Organizer</h1>
+	</header>
 
-			<form name="viewUsers" action="users" method="get">
-				<div class="c1">
-					<input type="submit" value="View All Users">
-				</div>
-			</form>
-			<br>
-			<form name="viewEvents" action="events" method="get">
-				<div class="c1">
-					<input type="submit" value="View All Events">
-				</div>
-			</form>
-			<br>
-<!-- 			<form name="viewEventById" action="events/21/" method="get"> -->
-<!-- 				<div class="c1"> -->
-<!-- 					<input type="submit" value="View event by ID"> -->
-<!-- 				</div> -->
-<!-- 			</form> -->
-			<form name="getSingleEvent" action="events" method="get">
-			<div class="c1">
-				<table>
-					<tr align="right">
-						Event ID:
-						<br>
-						<input type="text" size=30 name="id">
-						<br>
-						<input type="submit" value="View Event">
-					</tr>
-				</table>
-			</div>
-		</form>
-			
-			<br>
-			<form name="createEvent" action="create_events.html" method="get">
-				<div class="c1">
-					<input type="submit" value="Create new event">
-				</div>
-			</form>
-			<br>
-			<form name="editEvent" action="edit_event.html" method="get">
-				<div class="c1">
-					<input type="submit" value="Edit an event">
-				</div>
-			</form>
-			<br>
-			<form name="deleteEvent" action="delete_event.html" method="get">
-				<div class="c1">
-					<input type="submit" value="Delete an event">
-				</div>
-			</form>
-			<button onclick="window.location.href='logout.jsp'">Logout</button>
-		</div>
-	</div>
+	<nav>
+		<ul>
+			<li><a href="login.html" target="mainframe">Home</a></li>
+			<li>|</li>
+			<li><a href="#" target="mainframe">My Events</a></li>
+			<li>|</li>
+			<li><a href="#" target="mainframe">All Events</a></li>
+			<li>|</li>
+			<li><a href="invite.html" target="mainframe">Invite</a></li>
+		</ul>
+	</nav>
+	<section id="main">
+		<iframe src="login.html" name="mainframe" frameBorder="0">
+		</iframe>
+	</section>
 </body>
 </html>

@@ -2,12 +2,71 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="css/pagestyle.css" rel="stylesheet" />
+<style>
+body {
+	background: darkgray;
+	text-align: center;
+}
+
+h1 {
+	font-size: 50px;
+	text-shadow: 0px 0px 5px black;
+	color: #D8D8D8;
+	margin-left:auto;
+	margin-right:auto;
+	float: center;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+a:hover
+{ 
+	text-decoration: underline;
+}
+a:active
+{ 
+	color: grey;
+}
+
+.login {
+   width:400px; 
+   margin:0 auto;
+   box-shadow: 0px 0px 10px black;
+}
+
+ul
+{
+	list-style-type:none;
+	margin:5px;
+	padding:5px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+li
+{
+	display:inline;
+	font-size: 25px;
+	font-weight: bold;
+	text-shadow: 0px 0px 10px white;
+}
+	
+</style>
 <title>Login</title>
 
 </head>
 
 <body>
+	<h1>Sport Events Organizer</h1>
+	<nav>
+		<ul>
+			<li><a href="index.html">Login</a></li>
+			<li>|</li>
+			<li><a href="signup.html">Register</a></li>
+		</ul>
+	</nav>
 	<div class="login">
 		<h1>Login</h1>
 		<div class="c1">
@@ -28,7 +87,6 @@
 				</table>
 			</form>
 			<br>
-			<button onclick="window.location.href='signup.html'">Register</button>
 		</div>
 	</div>
 </body>

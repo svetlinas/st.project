@@ -4,11 +4,40 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="/demo-web-app/css/style.css"
-	type="text/css" />
 <title>Logout Page</title>
+<style>
+body {
+	background: darkgray;
+	text-align: center;
+	font-size: 25px;
+}
+
+h1 {
+	font-size: 50px;
+	text-shadow: 0px 0px 5px black;
+	color: #D8D8D8;
+	margin-left:auto;
+	margin-right:auto;
+	float: center;
+}
+
+a {
+	text-decoration: none;
+	color: white;
+	font-weight: bold;
+}
+a:hover
+{ 
+	text-decoration: underline;
+}
+a:active
+{ 
+	color: grey;
+}
+</style>
 </head>
 <body>
+	<h1>Sport Events Organizer</h1>
 	<div id="wrap">
 		<div id="content">
 			<%@ page session="true"%>
@@ -16,7 +45,7 @@
 			<%
 				session.invalidate();
 			%>
-			<br /> Click <a href="login.html">here</a> to login. <br />
+			<br /> Click <a href="index.html">here</a> to login again. <br />
 		</div>
 	</div>
 </body>

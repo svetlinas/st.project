@@ -12,7 +12,6 @@ import bg.su.fmi.st.calendar.mail.MailData;
 import bg.su.fmi.st.calendar.mail.MailSender;
 import bg.su.fmi.st.calendar.model.entities.Event;
 import bg.su.fmi.st.calendar.model.entities.EventInvitation;
-import bg.su.fmi.st.calendar.model.entities.User;
 import bg.su.fmi.st.calendar.model.manager.EventInvitationDAO;
 
 @Stateless

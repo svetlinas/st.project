@@ -8,14 +8,10 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import bg.su.fmi.st.calendar.model.entities.Event;
 import bg.su.fmi.st.calendar.model.entities.EventInvitation;
 import bg.su.fmi.st.calendar.model.entities.EventInvitation.InvitationResponse;
-import bg.su.fmi.st.calendar.model.entities.User;
 import bg.su.fmi.st.calendar.utils.NotificationService;
 
 @Stateless

@@ -1,26 +1,17 @@
 package bg.su.fmi.project.remote;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 
 import bg.su.fmi.st.calendar.mail.MailData;
 import bg.su.fmi.st.calendar.mail.MailSender;
-import bg.su.fmi.st.calendar.model.entities.Event;
-import bg.su.fmi.st.calendar.model.entities.EventInvitation;
-import bg.su.fmi.st.calendar.model.manager.EventDAO;
 import bg.su.fmi.st.calendar.model.manager.EventInvitationDAO;
 
 /**

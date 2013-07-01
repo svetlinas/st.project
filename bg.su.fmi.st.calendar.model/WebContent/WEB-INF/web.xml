@@ -22,6 +22,15 @@
 		<url-pattern>/test</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>ViewEventsTableServlet</servlet-name>
+		<servlet-class>bg.su.fmi.st.calendar.servlet.ViewEventsTableServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ViewEventsTableServlet</servlet-name>
+		<url-pattern>/viewEventsTable</url-pattern>
+	</servlet-mapping>
+	
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>Authenticated part</web-resource-name>

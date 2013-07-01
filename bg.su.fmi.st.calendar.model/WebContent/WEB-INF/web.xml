@@ -22,6 +22,7 @@
 		<url-pattern>/test</url-pattern>
 	</servlet-mapping>
 
+	<!-- Event servlets -->
 	<servlet>
 		<servlet-name>ViewAllEventsTableServlet</servlet-name>
 		<servlet-class>bg.su.fmi.st.calendar.servlet.events.ViewAllEventsTableServlet</servlet-class>
@@ -57,6 +58,15 @@
 	<servlet-mapping>
 		<servlet-name>ViewEventControllerServlet</servlet-name>
 		<url-pattern>/viewEventController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>DeleteEventControllerServlet</servlet-name>
+		<servlet-class>bg.su.fmi.st.calendar.servlet.events.controller.DeleteEventControllerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteEventControllerServlet</servlet-name>
+		<url-pattern>/deleteEventController</url-pattern>
 	</servlet-mapping>
 	
     <!--servlet>

@@ -8,7 +8,8 @@
 <html>
 <%
 	Event e = (Event) request.getAttribute(EventUtils.ATTRIBUTE_EVENT);
-	List invitationList = (List) request.getAttribute(EventUtils.ATTRIBUTE_EVENT_INVITATION_LIST);
+	List invitationList = (List) request
+	      .getAttribute(EventUtils.ATTRIBUTE_EVENT_INVITATION_LIST);
 %>
 <head>
 <title>An Event Event</title>
@@ -47,17 +48,20 @@
 		</form>
 
 		<br>
-		<%!int index;%>
-		<table border="1" id="InvitationsTable">
-			<tr>
-				<td><b>Invited user</b></td>
-				<td><b>Response</b></td>
-				<td><b>Comment</b></td>
-				</b>
-			</tr>
-
 			<%
-				for (Object o : invitationList) {
+				if(invitationList.size() == 0){%>
+					<h3 align="center">No invitations found</h3>
+				<%} else {%>
+
+			<table border="1" id="InvitationsTable">
+				<tr>
+					<td><b>Invited user</b></td>
+					<td><b>Response</b></td>
+					<td><b>Comment</b></td>
+					</b>
+				</tr>
+			
+			<% for (Object o : invitationList) {
 					EventInvitation invitation = (EventInvitation) o;
 			%>
 			<tr>
@@ -66,15 +70,45 @@
 				<td><%=invitation.getComment()%></td>
 			</tr>
 			<%
+					}//end of else
 				}
 			%>
 		</table>
 
+		<!-- Display Delete/Edit buttons for owner -->
+
+		<%
+			Boolean isOwner = (Boolean) request.getAttribute(EventUtils.ATTRIBUTE_IS_OWNER);
+			if (isOwner) {
+		%>
+		<br>
+		<form method="GET" action="deleteEventController">
+			<div class="c1">
+				<input type="hidden" name=<%=EventUtils.PARAMETER_EVENT_ID%>
+					value=<%=e.getId()%>> 
+				<input type="submit"
+					value="Delete event">
+			</div>
+		</form>
+
+		<br>
+		<form method="GET" action="event_edit">
+			<div class="c1">
+				<input type="hidden" name=<%=EventUtils.PARAMETER_EVENT_ID%> value="Edit event">
+				<input type="submit" value="Edit event">
+			</div>
+		</form>
+
+		<%
+			}
+		%>
+
 		<br>
 		<form name="newInvitation" action="inviteEventController" method="get">
 			<div class="c1">
-				Username: <br> <input type="text" size=30 name=<%=EventUtils.PARAMETER_USERNAME %>>
-				<input type="hidden" size=30 name=<%=EventUtils.PARAMETER_EVENT_ID %> value=<%=e.getId()%>>
+				Username: <br> 
+				<input type="text" size=30 name=<%=EventUtils.PARAMETER_USERNAME%>> 
+				<input type="hidden" name=<%=EventUtils.PARAMETER_EVENT_ID%> value=<%=e.getId()%>> 
 				<input type="submit" value="Send Invitation">
 			</div>
 		</form>

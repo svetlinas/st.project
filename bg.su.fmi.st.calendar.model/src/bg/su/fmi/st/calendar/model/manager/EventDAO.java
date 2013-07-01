@@ -24,6 +24,7 @@ public class EventDAO {
 
 	public Event addEvent(Event event) {
 		entityManager.persist(event);
+		entityManager.flush();
 		return event;
 	}
 
@@ -31,11 +32,8 @@ public class EventDAO {
 		List<Event> eventsToBeRemoved = getEvents(Arrays.asList(id));
 		for (Event event : eventsToBeRemoved) {
 			entityManager.remove(event);
+			entityManager.flush();
 		}
-	}
-
-	public void deleteEvent(Event event) {
-		entityManager.remove(event);
 	}
 
 	@SuppressWarnings("unchecked")

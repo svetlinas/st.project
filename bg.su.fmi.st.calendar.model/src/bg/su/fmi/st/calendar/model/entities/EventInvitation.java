@@ -1,5 +1,6 @@
 package bg.su.fmi.st.calendar.model.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -39,7 +40,7 @@ public class EventInvitation {
 	@XmlElement(name="user")
 	private User invitedUser;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@XmlElement(name="event")
 	private Event event;
 

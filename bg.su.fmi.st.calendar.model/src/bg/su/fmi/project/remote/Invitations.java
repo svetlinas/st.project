@@ -35,11 +35,11 @@ public class Invitations {
 	@POST
 	@Consumes("application/x-www-form-urlencoded")
 	public void createEvent(@Context UriInfo uriInfo,
-			@FormParam("toAddress") String toAddress,
-			@FormParam("fromName") String fromName) {
+			@FormParam("toAddress") String toAddress) {
 		String baseUri = uriInfo.getBaseUri().toString();
 		String mailText = MessageFormat.format(MAIL_INVITATION_CONTENT,
-				fromName, baseUri + "/signup.html");
+				"DEFAULT_USER", baseUri + "/signup.html"); // TODO: Valid user
+															// and URL
 		MailData mailData = new MailData();
 		mailData.setHost(HOST);
 		mailData.setSubject(MAIL_INVITATION_SUBJECT);

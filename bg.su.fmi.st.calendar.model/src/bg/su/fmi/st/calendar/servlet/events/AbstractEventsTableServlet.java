@@ -41,6 +41,8 @@ public abstract class AbstractEventsTableServlet extends HttpServlet{
 		pw.print("<h1>");
 		pw.print(getTitle());
 		pw.print("</h1>");
+		pw.println("<img id=\"sports\" src=\"images/sports.png\"/>");
+		pw.println("<br>");
 		
 		displayEventsInTable(pw);
 

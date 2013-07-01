@@ -11,6 +11,7 @@
 <body>
 	<div class="events">
 		<h1>Send Invitation</h1>
+		<img id="invitationimg" src="images/email.png"/>
 		<%@ page session="true"%>
 		<form name="sendinvitation" action="invitations" method="post">
 			<div class="c1">

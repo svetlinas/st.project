@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import bg.su.fmi.st.calendar.model.entities.Event;
 import bg.su.fmi.st.calendar.model.entities.EventInvitation;
 import bg.su.fmi.st.calendar.model.entities.User;
+import bg.su.fmi.st.calendar.model.entities.EventInvitation.InvitationResponse;
 import bg.su.fmi.st.calendar.model.manager.EventDAO;
 import bg.su.fmi.st.calendar.model.manager.EventInvitationDAO;
 import bg.su.fmi.st.calendar.model.manager.UserDAO;
@@ -34,10 +35,14 @@ public class InviteToEventControllerServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		User user = EventUtils.getUser(req, userDao);
-		Event event = EventUtils.getEvent(req, eventDao);		
+		Event event = EventUtils.getEvent(req, eventDao);
 		
-		invitationDao.addEventInvitation(new EventInvitation(event, user));
-
+		EventInvitation eventInvitation = new EventInvitation(event, user);
+		eventInvitation.setResponse(InvitationResponse.Waiting);
+		eventInvitation.setComment("");
+		
+		invitationDao.addEventInvitation(eventInvitation);
+		
 		//we display the ViewEvent page again
 		RequestDispatcher view = req.getRequestDispatcher(EventUtils.EVENT_VIEW_CONTROLLER_URL);
 		view.forward(req, resp);

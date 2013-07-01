@@ -24,13 +24,13 @@ public class ViewEventControllerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		Long id = Long.valueOf(req.getParameter(EventsConstants.PARAMETER_EVENT_ID));
+		Long id = Long.valueOf(req.getParameter(EventUtils.PARAMETER_EVENT_ID));
 		List<Event> events = eventDao.getEvents(
 				Arrays.asList(new Long[] { id }));
 		Event resultEvent = events.get(0);
 
-		req.setAttribute(EventsConstants.ATTRIBUTE_EVENT, resultEvent);
-		RequestDispatcher view = req.getRequestDispatcher(EventsConstants.EVENT_VIEW_JSP);
+		req.setAttribute(EventUtils.ATTRIBUTE_EVENT, resultEvent);
+		RequestDispatcher view = req.getRequestDispatcher(EventUtils.EVENT_VIEW_JSP);
 		view.forward(req, resp);
 	}
 }

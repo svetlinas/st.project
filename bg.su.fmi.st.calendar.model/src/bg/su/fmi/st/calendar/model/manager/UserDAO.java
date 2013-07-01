@@ -23,7 +23,7 @@ public class UserDAO {
 		entityManager.remove(user);
 	}
 
-	//TODO get user by name
+	//TODO add get user by Username or ID functionality
 	@SuppressWarnings("unchecked")
 	public List<User> getUsers() {
 		Query query = entityManager.createQuery("SELECT u from User as u");

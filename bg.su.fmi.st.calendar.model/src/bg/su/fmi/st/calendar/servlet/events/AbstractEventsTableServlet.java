@@ -64,9 +64,7 @@ public abstract class AbstractEventsTableServlet extends HttpServlet{
 	private void displayEventInRow(PrintWriter pw, Event event) {
 		pw.printf("<tr>");
 
-		String viewEventControllerUrl = String.format("%s?%s=%d",
-				EventsConstants.EVENT_VIEW_CONTROLLER_URL,
-				EventsConstants.PARAMETER_EVENT_ID, event.getId());
+		String viewEventControllerUrl = EventUtils.buildViewEventString(event.getId());
 		
 		HtmlTableUtil.displayCellWithLink(pw, event.getTitle(),
 				viewEventControllerUrl);

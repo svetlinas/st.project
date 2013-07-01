@@ -13,6 +13,7 @@ import bg.su.fmi.st.calendar.mail.MailSender;
 import bg.su.fmi.st.calendar.model.entities.Event;
 import bg.su.fmi.st.calendar.model.entities.EventInvitation;
 import bg.su.fmi.st.calendar.model.manager.EventInvitationDAO;
+import bg.su.fmi.st.calendar.servlet.events.EventUtils;
 
 @Stateless
 public class NotificationService {
@@ -33,12 +34,14 @@ public class NotificationService {
 	public void notifyUsersForChangedEvent(Event event) {
 		Collection<EventInvitation> eventInvitations = invitationDao
 				.getEventInvitations(event);
-		// TODO: provide a real link to the event
-		String baseUri = "http://localhost:8080/bg.su.fmi.st.calendar.model";
 
+		// TODO: provide a real link to the event. (EDIT LENI: check if this works)
+		String baseUri = "http://localhost:8080/bg.su.fmi.st.calendar.model/";
+		String viewEventString = EventUtils.buildViewEventString(event.getId());
+		
 		for (EventInvitation invitation : eventInvitations) {
 			String mailText = MessageFormat.format(MAIL_INVITATION_CONTENT,
-					event.getTitle(), baseUri + "/events?id=" + event.getId());
+					event.getTitle(), baseUri + viewEventString);
 			MailData mailData = new MailData();
 			mailData.setHost(HOST);
 			mailData.setSubject(MAIL_INVITATION_SUBJECT);
@@ -52,12 +55,14 @@ public class NotificationService {
 	public void notifyUserForInvitation(Event event) {
 		Collection<EventInvitation> eventInvitations = invitationDao
 				.getEventInvitations(event);
-		// TODO: provide a real link to the event
-		String baseUri = "http://localhost:8080/bg.su.fmi.st.calendar.model";
 
+		// TODO: provide a real link to the event. (EDIT LENI: check if this works)
+		String baseUri = "http://localhost:8080/bg.su.fmi.st.calendar.model/";
+		String viewEventString = EventUtils.buildViewEventString(event.getId());
+		
 		for (EventInvitation invitation : eventInvitations) {
 			String mailText = MessageFormat.format(MAIL_INVITATION_CONTENT_FOR_INVITATION,
-					event.getTitle(), baseUri + "/events?id=" + event.getId());
+					event.getTitle(), baseUri + viewEventString);
 			MailData mailData = new MailData();
 			mailData.setHost(HOST);
 			mailData.setSubject(MAIL_INVITATION_SUBJECT_FOR_INVITATION);

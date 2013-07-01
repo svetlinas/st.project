@@ -64,8 +64,12 @@ public abstract class AbstractEventsTableServlet extends HttpServlet{
 	private void displayEventInRow(PrintWriter pw, Event event) {
 		pw.printf("<tr>");
 
-		// TODO fix links to viewEvet page
-		HtmlTableUtil.displayCellWithLink(pw, event.getTitle(), "link");
+		String viewEventControllerUrl = String.format("%s?%s=%d",
+				EventsConstants.EVENT_VIEW_CONTROLLER_URL,
+				EventsConstants.PARAMETER_EVENT_ID, event.getId());
+		
+		HtmlTableUtil.displayCellWithLink(pw, event.getTitle(),
+				viewEventControllerUrl);
 
 		HtmlTableUtil.displayCell(pw, Event.df.format(event.getStartDate()), false);
 

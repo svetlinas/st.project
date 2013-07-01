@@ -40,6 +40,15 @@
 		<url-pattern>/viewMyEvents</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>ViewEventControllerServlet</servlet-name>
+		<servlet-class>bg.su.fmi.st.calendar.servlet.events.ViewEventControllerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ViewEventControllerServlet</servlet-name>
+		<url-pattern>/viewEventController</url-pattern>
+	</servlet-mapping>	
+	
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>Authenticated part</web-resource-name>

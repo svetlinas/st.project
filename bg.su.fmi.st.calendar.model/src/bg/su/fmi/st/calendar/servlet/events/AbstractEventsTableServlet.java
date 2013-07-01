@@ -1,4 +1,4 @@
-package bg.su.fmi.st.calendar.servlet;
+package bg.su.fmi.st.calendar.servlet.events;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,18 +13,22 @@ import javax.servlet.http.HttpServletResponse;
 import bg.su.fmi.st.calendar.model.entities.Event;
 import bg.su.fmi.st.calendar.model.entities.User;
 import bg.su.fmi.st.calendar.model.manager.EventDAO;
+import bg.su.fmi.st.calendar.servlet.HtmlTableUtil;
 
 //TODO extract more common stuff for table of Users as well
-public class ViewEventsTableServlet extends HttpServlet {
-
+public abstract class AbstractEventsTableServlet extends HttpServlet{
 	private static final long serialVersionUID = 7600259213069049846L;
 
+	private static final String[] COLUMNS = new String[]{"Name", "Start Date", "Event owner"};
+
 	@EJB
-	private EventDAO eventsDAO;
+	protected EventDAO eventsDAO;
+	protected HttpServletRequest request;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		this.request = request;
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
 
@@ -37,18 +41,18 @@ public class ViewEventsTableServlet extends HttpServlet {
 		pw.println("<hr/>");
 		pw.println("</body></html>");
 	}
-
+	
 	private void displayEventsInTable(PrintWriter pw) {
-		List<Event> events = eventsDAO.getEvents();
+		List<Event> events = getEventsForDisplay();
 		displayEventsInTable(pw, events);
 	}
-
+	
+	protected abstract List<Event> getEventsForDisplay();
+	
 	private void displayEventsInTable(PrintWriter pw, List<Event> events) {
 		pw.print("<table border=\"1\">");
 
-		String[] columnContent = new String[] { "Name", "Start Date",
-				"Event owner" };
-		HtmlTableUtil.displayColumnLabels(pw, columnContent);
+		HtmlTableUtil.displayColumnLabels(pw, COLUMNS);
 
 		for (Event e : events) {
 			displayEventInRow(pw, e);

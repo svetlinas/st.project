@@ -23,12 +23,21 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>ViewEventsTableServlet</servlet-name>
-		<servlet-class>bg.su.fmi.st.calendar.servlet.ViewEventsTableServlet</servlet-class>
+		<servlet-name>ViewAllEventsTableServlet</servlet-name>
+		<servlet-class>bg.su.fmi.st.calendar.servlet.events.ViewAllEventsTableServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>ViewEventsTableServlet</servlet-name>
-		<url-pattern>/viewEventsTable</url-pattern>
+		<servlet-name>ViewAllEventsTableServlet</servlet-name>
+		<url-pattern>/viewAllEvents</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ViewMyEventsTableServlet</servlet-name>
+		<servlet-class>bg.su.fmi.st.calendar.servlet.events.ViewMyEventsTableServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ViewMyEventsTableServlet</servlet-name>
+		<url-pattern>/viewMyEvents</url-pattern>
 	</servlet-mapping>
 	
 	<security-constraint>

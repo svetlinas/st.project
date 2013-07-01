@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class EventInvitation {
 
 	public enum InvitationResponse {
-		YES, NO
+		YES, NO, Waiting
 	}
 
 	public EventInvitation() {

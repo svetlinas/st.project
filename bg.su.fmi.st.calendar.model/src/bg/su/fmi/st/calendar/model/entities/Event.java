@@ -50,7 +50,7 @@ public class Event {
 	private String details;
 	
 	public static String EVENT_DATE_FORMAT = "yyyy-MM-dd HH:mm";
-	private static DateFormat df = new SimpleDateFormat(EVENT_DATE_FORMAT);
+	public static DateFormat df = new SimpleDateFormat(EVENT_DATE_FORMAT);
 	
 	@Override
 	public String toString() {

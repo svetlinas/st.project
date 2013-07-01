@@ -23,6 +23,7 @@ public class UserDAO {
 		entityManager.remove(user);
 	}
 
+	//TODO get user by name
 	@SuppressWarnings("unchecked")
 	public List<User> getUsers() {
 		Query query = entityManager.createQuery("SELECT u from User as u");

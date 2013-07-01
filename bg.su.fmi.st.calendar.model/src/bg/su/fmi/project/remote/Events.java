@@ -13,10 +13,14 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.SecurityContext;
 
 import bg.su.fmi.st.calendar.model.entities.Event;
+import bg.su.fmi.st.calendar.model.entities.User;
 import bg.su.fmi.st.calendar.model.manager.EventDAO;
+import bg.su.fmi.st.calendar.model.manager.UserDAO;
 
 /**
  * REST resource responsible for interactions with events.
@@ -31,6 +35,9 @@ public class Events {
 
 	@EJB
 	private EventDAO eventDAO;
+	
+	@EJB
+	private UserDAO userDAO;
 
 	@POST
 	@Produces(MediaType.TEXT_HTML)
@@ -41,11 +48,22 @@ public class Events {
 			@FormParam("startDate") String startDate,
 			@FormParam("endDate") String endDate,
 			@FormParam("type") String type, 
-			@FormParam("details") String details)
+			@FormParam("details") String details,
+			@Context SecurityContext request)
 			throws ParseException {
 		
-		// TODO organizer is null.
-		Event newEvent = new Event(null, title, place, startDate, endDate, type, details); 
+		String username = request.getUserPrincipal().getName();
+		
+		//TODO not optimized filtering. To be done in DAO at DB level with SQL
+		User organizer = null;
+		for(User u: userDAO.getUsers()){
+			if(u.getUsername().equals(username)){
+				organizer = u;
+				break;
+			}
+		}
+		
+		Event newEvent = new Event(organizer, title, place, startDate, endDate, type, details); 
 		return eventDAO.addEvent(newEvent);
 	}
 

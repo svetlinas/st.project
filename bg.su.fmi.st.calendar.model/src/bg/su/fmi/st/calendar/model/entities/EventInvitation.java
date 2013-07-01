@@ -86,5 +86,10 @@ public class EventInvitation {
 	public long getId() {
 		return id;
 	}
-
+	
+	@Override
+	public String toString() {
+		return String.format("Id=%d, InvitedUser=%s, EventName=%s, Response=%s, Comment=%s",
+				id, invitedUser.getName(), event.getTitle(), response, comment);
+	}
 }

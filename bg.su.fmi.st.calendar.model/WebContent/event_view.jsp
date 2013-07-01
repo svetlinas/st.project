@@ -46,6 +46,7 @@
 			</div>
 		</form>
 
+		<br>
 		<%!int index;%>
 		<table border="1" id="InvitationsTable">
 			<tr>
@@ -69,6 +70,7 @@
 			%>
 		</table>
 
+		<br>
 		<form name="newInvitation" action="inviteEventController" method="get">
 			<div class="c1">
 				Username: <br> <input type="text" size=30 name=<%=EventUtils.PARAMETER_USERNAME %>>

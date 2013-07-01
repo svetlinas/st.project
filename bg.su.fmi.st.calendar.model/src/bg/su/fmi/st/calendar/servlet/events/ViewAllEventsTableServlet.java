@@ -11,4 +11,9 @@ public class ViewAllEventsTableServlet extends AbstractEventsTableServlet {
 	protected List<Event> getEventsForDisplay() {
 		return eventsDAO.getEvents();
 	}
+
+	@Override
+	public String getTitle() {
+		return "All Events";
+	}
 }

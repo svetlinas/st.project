@@ -33,14 +33,21 @@ public abstract class AbstractEventsTableServlet extends HttpServlet{
 		PrintWriter pw = response.getWriter();
 
 		pw.println("<html>");
-		pw.println("<head><title>All Events</title></title>");
+		pw.println("<head>");
+		pw.println("<link href=\"css/pagestyle.css\" rel=\"stylesheet\" />");
+		pw.println("<title>All Events</title>");
+		pw.println("</head>");
 		pw.println("<body>");
-
+		pw.print("<h1>");
+		pw.print(getTitle());
+		pw.print("</h1>");
+		
 		displayEventsInTable(pw);
 
-		pw.println("<hr/>");
 		pw.println("</body></html>");
 	}
+
+	public abstract String getTitle();
 	
 	private void displayEventsInTable(PrintWriter pw) {
 		List<Event> events = getEventsForDisplay();

@@ -21,4 +21,9 @@ public class ViewMyEventsTableServlet extends AbstractEventsTableServlet {
 		}
 		return myEvents;
 	}
+
+	@Override
+	public String getTitle() {
+		return "My Events";
+	}
 }

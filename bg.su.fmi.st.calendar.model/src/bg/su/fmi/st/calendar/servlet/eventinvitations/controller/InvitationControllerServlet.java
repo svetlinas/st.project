@@ -22,12 +22,10 @@ public class InvitationControllerServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String eventInvitationId = (String) req.getAttribute(EventUtils.PARAMETER_INVITATION_ID);
-		Long eventInvitationIdLong = Long.parseLong(eventInvitationId);
-		String isAcceptedString = (String) req.getAttribute(EventUtils.INVITATION_RESPONDED);
-		boolean isAccepted = Boolean.parseBoolean(isAcceptedString);
+		Long id = Long.valueOf(req.getParameter(EventUtils.PARAMETER_INVITATION_ID));
+		boolean isAccepted = Boolean.parseBoolean(req.getParameter(EventUtils.INVITATION_RESPONDED));
 		
-		EventInvitation eventInvitation = eventInvitationDAO.getEventInvitation(eventInvitationIdLong);
+		EventInvitation eventInvitation = eventInvitationDAO.getEventInvitation(id);
 		if (isAccepted) {
 			eventInvitationDAO.acceptInvitation(eventInvitation);
 		} else {

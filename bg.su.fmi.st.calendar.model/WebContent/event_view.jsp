@@ -1,3 +1,4 @@
+<%@page import="bg.su.fmi.st.calendar.model.entities.EventInvitation.InvitationResponse"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -53,6 +54,7 @@
 					<h3 align="center">No invitations found</h3>
 				<%} else {%>
 
+			<form method="GET" action="respondToInvitation">
 			<table border="1" id="InvitationsTable">
 				<tr>
 					<td><b>Invited user</b></td>
@@ -66,14 +68,35 @@
 			%>
 			<tr>
 				<td><%=invitation.getInvitedUser().getName()%></td>
+				<% 
+				String invitedUsername = invitation.getInvitedUser().getUsername();
+				String loggedInUser = request.getUserPrincipal().getName();
+				boolean isCurrentUserInvited = invitedUsername.equals(loggedInUser); 
+				boolean isWaiting = invitation.getResponse().equals(InvitationResponse.Waiting);
+				if (isCurrentUserInvited && isWaiting) {%>
+				<td>
+					<div class="c1">
+						<input type="hidden" name=<%=EventUtils.PARAMETER_INVITATION_ID%> value=<%=invitation.getId()%>>
+						<input type="hidden" name=<%=EventUtils.INVITATION_RESPONDED%> value=<%=true%>>
+						<input type="submit" value="Accept">
+					</div>
+				    <div class="c1">
+                        <input type="hidden" name=<%=EventUtils.PARAMETER_INVITATION_ID%> value=<%=invitation.getId()%>>
+                        <input type="hidden" name=<%=EventUtils.INVITATION_RESPONDED%> value=<%=false%>>
+                        <input type="submit" value="Reject">
+                    </div>
+				</td>
+				<% } else {	%>
 				<td><%=invitation.getResponse()%></td>
+				<% } %>
 				<td><%=invitation.getComment()%></td>
 			</tr>
 			<%
-					}//end of else
+					}//end of for
 				}
 			%>
 		</table>
+		</form>
 
 		<!-- Display Delete/Edit buttons for owner -->
 

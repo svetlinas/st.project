@@ -32,11 +32,13 @@ public class InviteToEventControllerServlet extends AbstractEventControllerServl
 		User user = getUser(req, userDao);
 		Event event = getEvent(req, eventDao);
 		
-		EventInvitation eventInvitation = new EventInvitation(event, user);
-		eventInvitation.setResponse(InvitationResponse.Waiting);
-		eventInvitation.setComment("");
-		
-		invitationDao.addEventInvitation(eventInvitation);
+		if (user != null) {
+			EventInvitation eventInvitation = new EventInvitation(event, user);
+			eventInvitation.setResponse(InvitationResponse.Waiting);
+			eventInvitation.setComment("");
+
+			invitationDao.addEventInvitation(eventInvitation);
+		}
 		
 		//we display the ViewEvent page again
 		RequestDispatcher view = req.getRequestDispatcher(EventUtils.URL_VIEW_EVENT_CONTROLLER);

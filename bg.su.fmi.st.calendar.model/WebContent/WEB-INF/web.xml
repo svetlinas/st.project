@@ -41,14 +41,14 @@
 		<url-pattern>/viewMyEvents</url-pattern>
 	</servlet-mapping>
 	
-    <!--servlet>
-        <servlet-name>ViewMyEventInvitationsTableServlet</servlet-name>
-        <servlet-class>bg.su.fmi.st.calendar.servlet.eventinvitations.ViewMyEventInvitationsTableServlet</servlet-class>
+    <servlet>
+        <servlet-name>ViewEventInvitationsTableServlet</servlet-name>
+        <servlet-class>bg.su.fmi.st.calendar.servlet.eventinvitations.ViewEventInvitationsTableServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ViewMyEventInvitationsTableServlet</servlet-name>
+        <servlet-name>ViewEventInvitationsTableServlet</servlet-name>
         <url-pattern>/viewMyEventInvitatons</url-pattern>
-    </servlet-mapping-->
+    </servlet-mapping>
 	
 	<!-- CONTROLLERS -->
 	<servlet>

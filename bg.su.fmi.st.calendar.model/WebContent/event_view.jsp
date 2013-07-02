@@ -115,7 +115,7 @@
 			</div>
 		</form>
 
-		<form method="GET" action="editEventController">
+		<form method="GET" action=<%= EventUtils.URL_EDIT_EVENT_PAGE_CONTROLLER %>>
 			<div class="c1">
 				<input type="hidden" name=<%=EventUtils.PARAMETER_EVENT_ID%> value=<%=e.getId()%>>
 				<input class="eventaction" name="editButton" type="submit" value="Edit event">

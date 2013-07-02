@@ -85,6 +85,9 @@ public class EventDAO {
 		event.setTitle(changedEvent.getTitle());
 		event.setType(changedEvent.getType());
 		
+		entityManager.persist(event);
+		entityManager.flush();
+		
 		notificationService.notifyUsersForChangedEvent(event);
 		return event;
 	}

@@ -13,6 +13,7 @@
 		<tracking-mode>COOKIE</tracking-mode>
 	</session-config>
 
+	<!-- Test Servlet -->
 	<servlet>
 		<servlet-name>TestServlet</servlet-name>
 		<servlet-class>bg.su.fmi.st.calendar.model.test.TestServlet</servlet-class>
@@ -84,6 +85,15 @@
 	<servlet-mapping>
 		<servlet-name>EditEventControllerServlet</servlet-name>
 		<url-pattern>/editEventController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>EditEventPageControllerServlet</servlet-name>
+		<servlet-class>bg.su.fmi.st.calendar.servlet.events.controller.EditEventPageControllerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditEventPageControllerServlet</servlet-name>
+		<url-pattern>/editEventPageController</url-pattern>
 	</servlet-mapping>
 	
     <servlet>

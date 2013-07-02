@@ -41,6 +41,15 @@
 		<url-pattern>/viewMyEvents</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>ViewUsersTableServlet</servlet-name>
+		<servlet-class>bg.su.fmi.st.calendar.servlet.users.ViewUsersTableServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ViewUsersTableServlet</servlet-name>
+		<url-pattern>/viewUsers</url-pattern>
+	</servlet-mapping>
+	
     <servlet>
         <servlet-name>ViewEventInvitationsTableServlet</servlet-name>
         <servlet-class>bg.su.fmi.st.calendar.servlet.eventinvitations.ViewEventInvitationsTableServlet</servlet-class>

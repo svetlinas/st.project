@@ -1,57 +1,28 @@
 package bg.su.fmi.st.calendar.servlet.events;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import bg.su.fmi.st.calendar.model.entities.Event;
 import bg.su.fmi.st.calendar.model.entities.User;
 import bg.su.fmi.st.calendar.model.manager.EventDAO;
+import bg.su.fmi.st.calendar.servlet.AbstractTableServlet;
 import bg.su.fmi.st.calendar.servlet.HtmlTableUtil;
 
-//TODO extract more common stuff for table of Users as well
-public abstract class AbstractEventsTableServlet extends HttpServlet{
+public abstract class AbstractEventsTableServlet extends AbstractTableServlet {
 	private static final long serialVersionUID = 7600259213069049846L;
 
 	private static final String[] COLUMNS = new String[]{"Name", "Start Date", "Event owner"};
 
 	@EJB
 	protected EventDAO eventsDAO;
-	protected HttpServletRequest request;
-
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		this.request = request;
-		response.setContentType("text/html");
-		PrintWriter pw = response.getWriter();
-
-		pw.println("<html>");
-		pw.println("<head>");
-		pw.println("<link href=\"css/pagestyle.css\" rel=\"stylesheet\" />");
-		pw.println("<title>All Events</title>");
-		pw.println("</head>");
-		pw.println("<body>");
-		pw.print("<h1>");
-		pw.print(getTitle());
-		pw.print("</h1>");
-		pw.println("<img id=\"sports\" src=\"images/sports.png\"/>");
-		pw.println("<br>");
-		
-		displayEventsInTable(pw);
-
-		pw.println("</body></html>");
-	}
 
 	public abstract String getTitle();
 	
-	private void displayEventsInTable(PrintWriter pw) {
+	@Override
+	protected void displayDataInTable(PrintWriter pw) {
 		List<Event> events = getEventsForDisplay();
 		displayEventsInTable(pw, events);
 	}

@@ -92,6 +92,23 @@ public class Event {
 		}
 	}
 	
+	private static String EVENT_DATE_FORMAT_HTML_DATE = "yyyy-MM-dd";
+	private static String EVENT_DATE_FORMAT_HTML_TIME = "HH:mm:ss.0";
+	
+	private String getHtmlDateString(Date date){
+		String dateString = new SimpleDateFormat(EVENT_DATE_FORMAT_HTML_DATE).format(date);
+		String timeString = new SimpleDateFormat(EVENT_DATE_FORMAT_HTML_TIME).format(date);
+		return dateString + "T" + timeString;
+	}
+	
+	public String getHtmlDateStartDate(){
+		return getHtmlDateString(startDate);
+	}
+	
+	public String getHtmlDateEndDate(){
+		return getHtmlDateString(endDate);
+	}
+	
 	public static String dateToString(Date date){
 		return df.format(date);
 	}
@@ -132,7 +149,6 @@ public class Event {
 		this.startDate = parseDate(startDateStr);
 	}
 
-
 	public Date getEndDate() {
 		return endDate;
 	}
@@ -144,7 +160,6 @@ public class Event {
 	public void setEndDate(String endDateStr) {
 		this.endDate = parseDate(endDateStr);
 	}
-	
 	
 	public String getType() {
 		return type;

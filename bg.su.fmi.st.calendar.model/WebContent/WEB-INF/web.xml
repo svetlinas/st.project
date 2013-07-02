@@ -59,6 +59,15 @@
 		<servlet-name>ViewEventControllerServlet</servlet-name>
 		<url-pattern>/viewEventController</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EditEventControllerServlet</servlet-name>
+		<servlet-class>bg.su.fmi.st.calendar.servlet.events.controller.EditEventControllerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditEventControllerServlet</servlet-name>
+		<url-pattern>/event_edit</url-pattern>
+	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>DeleteEventControllerServlet</servlet-name>

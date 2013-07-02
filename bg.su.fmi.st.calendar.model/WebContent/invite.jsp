@@ -9,7 +9,10 @@
 <script>
 function showMessage()
 {
-	alert("Invitation sent to " + document.forms["sendinvitation"]["toAddress"].value + ".");
+	var email = document.forms["sendinvitation"]["toAddress"].value; 
+	if(email) {
+		alert("Invitation sent to " + email + ".");	
+	}
 }
 </script>
 </head>

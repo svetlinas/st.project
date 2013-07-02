@@ -6,14 +6,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Send Email Invitation</title>
 <link href="css/pagestyle.css" rel="stylesheet" />
-
+<script>
+function showMessage()
+{
+	alert("Invitation sent to " + document.forms["sendinvitation"]["toAddress"].value + ".");
+}
+</script>
 </head>
 <body>
 	<div class="events">
 		<h1>Send Invitation</h1>
 		<img id="invitationimg" src="images/email.png"/>
 		<%@ page session="true"%>
-		<form name="sendinvitation" action="invitations" method="post">
+		<form name="sendinvitation" action="invitations" method="post" onsubmit="showMessage()">
 			<div class="c1">
 				<p>&nbsp;</p>
 				<table>

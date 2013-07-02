@@ -119,7 +119,11 @@ public class TestServlet extends HttpServlet {
 		
 		EventInvitation secondInvitation = new EventInvitation(secondEvent, secondUser);
 		invitationsDAO.addEventInvitation(secondInvitation);
-		
+
+		EventInvitation ei = invitationsDAO.getEventInvitation(secondInvitation.getId());
+		if (ei.getId() == secondInvitation.getId()) {
+			pw.printf("Welldone!!! YOu have the same ids!!");
+		}
 		invitationsDAO.acceptInvitation(firstInvitation);
 		
 		invitationsDAO.declineInvitation(secondInvitation);

@@ -45,6 +45,12 @@ public class EventInvitationDAO {
 		query.setParameter(1, event);
 		return query.getResultList();
 	}
+
+	public EventInvitation getEventInvitation(long id) {
+		Query query = entityManager.createQuery("SELECT e from EventInvitation as e where e.id=?1");
+		query.setParameter(1, id);
+		return (EventInvitation) query.getResultList().get(0);
+	}
 	
 	public void invite(Event event) {
 		notificationService.notifyUserForInvitation(event);
@@ -53,14 +59,12 @@ public class EventInvitationDAO {
 	public void acceptInvitation(EventInvitation eventInvitation) {
 		EventInvitation invitation = entityManager.find(EventInvitation.class, eventInvitation.getId());
 		invitation.setResponse(InvitationResponse.YES);
-//		return invitation;
 	}
 	
-	public void declineInvitation(EventInvitation eventInvitation) {
+	public void declineInvitation(EventInvitation eventInvitation, String comment) {
 		EventInvitation invitation = entityManager.find(EventInvitation.class, eventInvitation.getId());
 		invitation.setResponse(InvitationResponse.NO);
-		invitation.setComment("I cant come tommorow");
-//		return invitation;
+		invitation.setComment(comment);
 	}
 
 }

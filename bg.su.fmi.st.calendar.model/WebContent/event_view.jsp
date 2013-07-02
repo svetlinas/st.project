@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@ page import="bg.su.fmi.st.calendar.model.entities.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="bg.su.fmi.st.calendar.model.entities.*"%>
 <%@ page import="bg.su.fmi.st.calendar.servlet.events.*"%>
+<%@page import="bg.su.fmi.st.calendar.model.entities.EventInvitation.InvitationResponse"%>
 
 <html>
 <%
@@ -66,11 +67,34 @@
 			%>
 			<tr>
 				<td><%=invitation.getInvitedUser().getName()%></td>
+				<% 
+				String invitedUsername = invitation.getInvitedUser().getUsername();
+				String loggedInUser = request.getUserPrincipal().getName();
+				boolean isCurrentUserInvited = invitedUsername.equals(loggedInUser); 
+				boolean isWaiting = invitation.getResponse().equals(InvitationResponse.Waiting);
+				if (isCurrentUserInvited && isWaiting) {%>
+				<td>
+	                <form method="GET" action="acceptInvitation">
+	                    <div class="c1">
+	                        <input type="hidden" name=<%=EventUtils.PARAMETER_INVITATION_ID%> value=<%=invitation.getId()%>>
+	                        <input class="accept" type="submit" value="Accept">
+	                    </div>
+	                 </form>
+	                 <form method="GET" action="rejectInvitation">
+	                    <div class="c1">
+	                        <input type="hidden" name=<%=EventUtils.PARAMETER_INVITATION_ID%> value=<%=invitation.getId()%>>
+	                        <input type="text" name=<%=EventUtils.INVITATION_COMMENT%>>
+	                        <input class="reject" type="submit" value="Reject">
+	                    </div>
+	                </form>
+				</td>
+				<% } else {	%>
 				<td><%=invitation.getResponse()%></td>
+				<% } %>
 				<td><%=invitation.getComment()%></td>
 			</tr>
 			<%
-					}//end of else
+					}//end of for
 				}
 			%>
 		</table>
@@ -86,16 +110,15 @@
 			<div class="c1">
 				<input type="hidden" name=<%=EventUtils.PARAMETER_EVENT_ID%>
 					value=<%=e.getId()%>> 
-				<input type="submit"
+				<input class="eventaction" type="submit"
 					value="Delete event">
 			</div>
 		</form>
 
-		<br>
-		<form method="GET" action="event_edit">
+		<form method="GET" action="editEventController">
 			<div class="c1">
-				<input type="hidden" name=<%=EventUtils.PARAMETER_EVENT_ID%> value=<%=e.getId() %>>
-				<input type="submit" name="other" value="Edit event">
+				<input type="hidden" name=<%=EventUtils.PARAMETER_EVENT_ID%> value=<%=e.getId()%>>
+				<input class="eventaction" name="editButton" type="submit" value="Edit event">
 			</div>
 		</form>
 

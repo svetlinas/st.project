@@ -86,16 +86,15 @@
 			<div class="c1">
 				<input type="hidden" name=<%=EventUtils.PARAMETER_EVENT_ID%>
 					value=<%=e.getId()%>> 
-				<input type="submit"
+				<input class="eventaction" type="submit"
 					value="Delete event">
 			</div>
 		</form>
 
-		<br>
 		<form method="GET" action="event_edit">
 			<div class="c1">
 				<input type="hidden" name=<%=EventUtils.PARAMETER_EVENT_ID%> value="Edit event">
-				<input type="submit" value="Edit event">
+				<input class="eventaction" type="submit" value="Edit event">
 			</div>
 		</form>
 

@@ -79,12 +79,21 @@
 	</servlet-mapping>
 	
     <servlet>
-        <servlet-name>InvitationControllerServlet</servlet-name>
-        <servlet-class>bg.su.fmi.st.calendar.servlet.eventinvitations.controller.InvitationControllerServlet</servlet-class>
+        <servlet-name>AcceptInvitationControllerServlet</servlet-name>
+        <servlet-class>bg.su.fmi.st.calendar.servlet.eventinvitations.controller.AcceptInvitationControllerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>InvitationControllerServlet</servlet-name>
-        <url-pattern>/respondToInvitation</url-pattern>
+        <servlet-name>AcceptInvitationControllerServlet</servlet-name>
+        <url-pattern>/acceptInvitation</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>RejectInvitationControllerServlet</servlet-name>
+        <servlet-class>bg.su.fmi.st.calendar.servlet.eventinvitations.controller.RejectInvitationControllerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RejectInvitationControllerServlet</servlet-name>
+        <url-pattern>/rejectInvitation</url-pattern>
     </servlet-mapping>
 	
 	<servlet>

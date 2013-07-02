@@ -54,7 +54,6 @@
 					<h3 align="center">No invitations found</h3>
 				<%} else {%>
 
-			<form method="GET" action="respondToInvitation">
 			<table border="1" id="InvitationsTable">
 				<tr>
 					<td><b>Invited user</b></td>
@@ -75,16 +74,18 @@
 				boolean isWaiting = invitation.getResponse().equals(InvitationResponse.Waiting);
 				if (isCurrentUserInvited && isWaiting) {%>
 				<td>
-					<div class="c1">
-						<input type="hidden" name=<%=EventUtils.PARAMETER_INVITATION_ID%> value=<%=invitation.getId()%>>
-						<input type="hidden" name=<%=EventUtils.INVITATION_RESPONDED%> value=<%=true%>>
-						<input type="submit" value="Accept">
-					</div>
-				    <div class="c1">
-                        <input type="hidden" name=<%=EventUtils.PARAMETER_INVITATION_ID%> value=<%=invitation.getId()%>>
-                        <input type="hidden" name=<%=EventUtils.INVITATION_RESPONDED%> value=<%=false%>>
-                        <input type="submit" value="Reject">
-                    </div>
+	                <form method="GET" action="acceptInvitation">
+	                    <div class="c1">
+	                        <input type="hidden" name=<%=EventUtils.PARAMETER_INVITATION_ID%> value=<%=invitation.getId()%>>
+	                        <input class="accept" type="submit" value="Accept">
+	                    </div>
+	                 </form>
+	                 <form method="GET" action="rejectInvitation">
+	                    <div class="c1">
+	                        <input type="hidden" name=<%=EventUtils.PARAMETER_INVITATION_ID%> value=<%=invitation.getId()%>>
+	                        <input class="reject" type="submit" value="Reject">
+	                    </div>
+	                </form>
 				</td>
 				<% } else {	%>
 				<td><%=invitation.getResponse()%></td>
@@ -96,7 +97,6 @@
 				}
 			%>
 		</table>
-		</form>
 
 		<!-- Display Delete/Edit buttons for owner -->
 

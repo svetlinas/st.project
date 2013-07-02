@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import bg.su.fmi.st.calendar.model.entities.EventInvitation;
 import bg.su.fmi.st.calendar.model.manager.EventInvitationDAO;
 import bg.su.fmi.st.calendar.servlet.events.EventUtils;
-public class InvitationControllerServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 162356820452759261L;
-	
+public class RejectInvitationControllerServlet extends HttpServlet {
+
+	private static final long serialVersionUID = 7082285240035566871L;
 	@EJB
 	EventInvitationDAO eventInvitationDAO;
 
@@ -23,18 +23,10 @@ public class InvitationControllerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		Long id = Long.valueOf(req.getParameter(EventUtils.PARAMETER_INVITATION_ID));
-		boolean isAccepted = Boolean.parseBoolean(req.getParameter(EventUtils.INVITATION_RESPONDED));
-		
 		EventInvitation eventInvitation = eventInvitationDAO.getEventInvitation(id);
-		if (isAccepted) {
-			eventInvitationDAO.acceptInvitation(eventInvitation);
-		} else {
-			eventInvitationDAO.declineInvitation(eventInvitation);
-		}
-		
-		RequestDispatcher view = req.getRequestDispatcher(EventUtils
-				.buildViewEventString(eventInvitation.getEvent().getId()));
+		eventInvitationDAO.declineInvitation(eventInvitation);
+
+		RequestDispatcher view = req.getRequestDispatcher(EventUtils.buildViewEventString(eventInvitation.getEvent().getId()));
 		view.forward(req, resp);
 	}
-
 }

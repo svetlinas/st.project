@@ -126,7 +126,7 @@ public class TestServlet extends HttpServlet {
 		}
 		invitationsDAO.acceptInvitation(firstInvitation);
 		
-		invitationsDAO.declineInvitation(secondInvitation);
+		invitationsDAO.declineInvitation(secondInvitation, "Cant Come!!!");
 		
 	}
 

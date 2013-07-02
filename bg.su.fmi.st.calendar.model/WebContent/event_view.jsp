@@ -83,6 +83,7 @@
 	                 <form method="GET" action="rejectInvitation">
 	                    <div class="c1">
 	                        <input type="hidden" name=<%=EventUtils.PARAMETER_INVITATION_ID%> value=<%=invitation.getId()%>>
+	                        <input type="text" name=<%=EventUtils.INVITATION_COMMENT%>>
 	                        <input class="reject" type="submit" value="Reject">
 	                    </div>
 	                </form>

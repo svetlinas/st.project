@@ -8,7 +8,7 @@ public class EventUtils {
 	public static final String PARAMETER_USERNAME = "username";
 
 	public static final String PARAMETER_INVITATION_ID = "invitation_id";
-	public static final String INVITATION_RESPONDED = "responded";
+	public static final String INVITATION_COMMENT = "comment";
 
 	public static final String ATTRIBUTE_EVENT = "event";
 	public static final String ATTRIBUTE_EVENT_INVITATION_LIST = "eventInvitationList";

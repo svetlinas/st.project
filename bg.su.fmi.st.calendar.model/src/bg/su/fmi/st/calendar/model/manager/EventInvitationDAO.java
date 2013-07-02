@@ -61,10 +61,10 @@ public class EventInvitationDAO {
 		invitation.setResponse(InvitationResponse.YES);
 	}
 	
-	public void declineInvitation(EventInvitation eventInvitation) {
+	public void declineInvitation(EventInvitation eventInvitation, String comment) {
 		EventInvitation invitation = entityManager.find(EventInvitation.class, eventInvitation.getId());
 		invitation.setResponse(InvitationResponse.NO);
-//		invitation.setComment("I cant come tommorow");
+		invitation.setComment(comment);
 	}
 
 }

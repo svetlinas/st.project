@@ -23,8 +23,10 @@ public class RejectInvitationControllerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		Long id = Long.valueOf(req.getParameter(EventUtils.PARAMETER_INVITATION_ID));
+		String comment = req.getParameter(EventUtils.INVITATION_COMMENT);
+		
 		EventInvitation eventInvitation = eventInvitationDAO.getEventInvitation(id);
-		eventInvitationDAO.declineInvitation(eventInvitation);
+		eventInvitationDAO.declineInvitation(eventInvitation, comment);
 
 		RequestDispatcher view = req.getRequestDispatcher(EventUtils.buildViewEventString(eventInvitation.getEvent().getId()));
 		view.forward(req, resp);

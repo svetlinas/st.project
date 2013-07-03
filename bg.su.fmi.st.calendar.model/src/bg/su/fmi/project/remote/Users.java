@@ -34,17 +34,20 @@ public class Users {
 	public Response addUser(@FormParam("username") String username,
 			@FormParam("password") String password,
 			@FormParam("cpassword") String cpassword,
-			@FormParam("email") String email,
-			@FormParam("name") String name,
+			@FormParam("email") String email, @FormParam("name") String name,
 			@FormParam("picture") byte[] picture) {
 		if (!password.equals(cpassword)) {
-			//TODO print error message
+			// TODO print error message
 			return Response.notModified("signup.html").build();
 		}
 		User newUser = new User(username, password, email, name, picture);
 		newUser.setGroups(Arrays.asList(User.Group.USER));
-		userDAO.addUser(newUser);
-		return Response.seeOther(URI.create("index.html")).build();
+		boolean isCreated = userDAO.addUser(newUser);
+		if (isCreated) {
+			return Response.seeOther(URI.create("index.html")).build();
+		} else {
+			return Response.notModified("signup.html").build();
+		}
 	}
 
 	@GET

@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -28,8 +29,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "USER")
 @XmlRootElement(name = "user")
 @XmlAccessorType(XmlAccessType.FIELD)
+@NamedQuery(name = "findUserByUsername", query = "SELECT u FROM User u WHERE u.username LIKE :username")
 public class User implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	public enum Group {

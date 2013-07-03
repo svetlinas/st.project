@@ -15,18 +15,28 @@ public class UserDAO {
 	@PersistenceContext(unitName = "sport-events-organizer-unit")
 	private EntityManager entityManager;
 
-	public void addUser(User user) {
+	public boolean addUser(User user) {
+		for (User existingUser : getUsers()) {
+			if (existingUser.getUsername().equals(user.getUsername())) {
+				return false;
+			}
+		}
 		entityManager.persist(user);
+		return true;
 	}
 
 	public void deleteUser(User user) {
 		entityManager.remove(user);
 	}
 
-	//TODO add get user by Username or ID functionality
 	@SuppressWarnings("unchecked")
 	public List<User> getUsers() {
 		Query query = entityManager.createQuery("SELECT u from User as u");
 		return query.getResultList();
+	}
+
+	public User getByUsername(String username) {
+		return (User) (entityManager.createNamedQuery("findUserByUsername")
+				.setParameter("username", username).getSingleResult());
 	}
 }

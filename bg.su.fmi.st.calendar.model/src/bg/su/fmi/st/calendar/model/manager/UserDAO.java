@@ -15,8 +15,14 @@ public class UserDAO {
 	@PersistenceContext(unitName = "sport-events-organizer-unit")
 	private EntityManager entityManager;
 
-	public void addUser(User user) {
+	public boolean addUser(User user) {
+		for (User existingUser: getUsers()) {
+			if (existingUser.getUsername().equals(user.getUsername())) {
+				return false;
+			}
+		}
 		entityManager.persist(user);
+		return true;
 	}
 
 	public void deleteUser(User user) {

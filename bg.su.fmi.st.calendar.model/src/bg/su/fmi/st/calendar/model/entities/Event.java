@@ -17,50 +17,52 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@XmlRootElement(name="Event")
+@XmlRootElement(name = "Event")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Event {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@XmlElement(name="id")
+	@XmlElement(name = "id")
 	private long id;
 
 	@ManyToOne
 	@JoinColumn(name = "organizer_id")
-	@XmlElement(name="organizer")
+	@XmlElement(name = "organizer")
 	private User organizer;
 
-	@XmlElement(name="title")
+	@XmlElement(name = "title")
 	private String title;
 
-	@XmlElement(name="place")
+	@XmlElement(name = "place")
 	private String place;
 
-	@XmlElement(name="startDate")
+	@XmlElement(name = "startDate")
 	private Date startDate;
 
-	@XmlElement(name="endDate")
+	@XmlElement(name = "endDate")
 	private Date endDate;
 
-	@XmlElement(name="type")
+	@XmlElement(name = "type")
 	private String type;
-	
-	@XmlElement(name="details")
+
+	@XmlElement(name = "details")
 	private String details;
-	
+
 	public static String EVENT_DATE_FORMAT = "yyyy-MM-dd HH:mm";
 	public static DateFormat df = new SimpleDateFormat(EVENT_DATE_FORMAT);
-	
+
 	@Override
 	public String toString() {
-		
-		return String.format("title= %s; place= %s startDate= %s, endDate= %s; type= %s; details= %s",
-				this.title, this.place, df.format(this.startDate), df.format(this.endDate), this.type, this.details);
+
+		return String
+				.format("title= %s; place= %s startDate= %s, endDate= %s; type= %s; details= %s",
+						this.title, this.place, df.format(this.startDate), df.format(this.endDate),
+						this.type, this.details);
 	}
-	
-	public Event(User organizer, String title, String place, Date startDate,
-			Date endDate, String type, String details) {
+
+	public Event(User organizer, String title, String place, Date startDate, Date endDate,
+			String type, String details) {
 		super();
 		this.organizer = organizer;
 		this.title = title;
@@ -70,16 +72,16 @@ public class Event {
 		this.type = type;
 		this.details = details;
 	}
-	
-	public Event(User organizer, String title, String place, String startDate,
-			String endDate, String type, String details) {
+
+	public Event(User organizer, String title, String place, String startDate, String endDate,
+			String type, String details) {
 		this(organizer, title, place, parseDate(startDate), parseDate(endDate), type, details);
-	}	
-	
+	}
+
 	/**
 	 * 
 	 * @param dateString
-	 *            - the date in format YYYY-MM-DDTHH:MM
+	 *           - the date in format YYYY-MM-DDTHH:MM
 	 * @return
 	 */
 	public static Date parseDate(String dateString) {
@@ -91,25 +93,25 @@ public class Event {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	private static String EVENT_DATE_FORMAT_HTML_DATE = "yyyy-MM-dd";
 	private static String EVENT_DATE_FORMAT_HTML_TIME = "HH:mm:ss.0";
-	
-	private String getHtmlDateString(Date date){
+
+	private String getHtmlDateString(Date date) {
 		String dateString = new SimpleDateFormat(EVENT_DATE_FORMAT_HTML_DATE).format(date);
 		String timeString = new SimpleDateFormat(EVENT_DATE_FORMAT_HTML_TIME).format(date);
 		return dateString + "T" + timeString;
 	}
-	
-	public String getHtmlDateStartDate(){
+
+	public String getHtmlDateStartDate() {
 		return getHtmlDateString(startDate);
 	}
-	
-	public String getHtmlDateEndDate(){
+
+	public String getHtmlDateEndDate() {
 		return getHtmlDateString(endDate);
 	}
-	
-	public static String dateToString(Date date){
+
+	public static String dateToString(Date date) {
 		return df.format(date);
 	}
 
@@ -144,7 +146,7 @@ public class Event {
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
-	
+
 	public void setStartDate(String startDateStr) {
 		this.startDate = parseDate(startDateStr);
 	}
@@ -156,11 +158,11 @@ public class Event {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	
+
 	public void setEndDate(String endDateStr) {
 		this.endDate = parseDate(endDateStr);
 	}
-	
+
 	public String getType() {
 		return type;
 	}
@@ -180,7 +182,22 @@ public class Event {
 	public long getId() {
 		return id;
 	}
-	
+
 	public Event() {
+	}
+
+	@Override
+	public int hashCode() {
+		return (int)(39 * this.id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Event) {
+			Event e = (Event) obj;
+			return this.id == (e.id);
+		}
+		return false;
+
 	}
 }

@@ -16,7 +16,7 @@ public class UserDAO {
 	private EntityManager entityManager;
 
 	public boolean addUser(User user) {
-		for (User existingUser: getUsers()) {
+		for (User existingUser : getUsers()) {
 			if (existingUser.getUsername().equals(user.getUsername())) {
 				return false;
 			}
@@ -29,10 +29,14 @@ public class UserDAO {
 		entityManager.remove(user);
 	}
 
-	//TODO add get user by Username or ID functionality
 	@SuppressWarnings("unchecked")
 	public List<User> getUsers() {
 		Query query = entityManager.createQuery("SELECT u from User as u");
 		return query.getResultList();
+	}
+
+	public User getByUsername(String username) {
+		return (User) (entityManager.createNamedQuery("findUserByUsername")
+				.setParameter("username", username).getSingleResult());
 	}
 }

@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bg.su.fmi.st.calendar.model.entities.Event;
-import bg.su.fmi.st.calendar.model.entities.User;
 import bg.su.fmi.st.calendar.model.manager.UserDAO;
 import bg.su.fmi.st.calendar.servlet.events.EventUtils;
 
@@ -46,8 +45,8 @@ public class CreateEventControllerServlet extends AbstractEventControllerServlet
 		String typeStr = req.getParameter(EventUtils.PARAMETER_EVENT_TYPE);
 		event.setType(typeStr);
 
-		String owner = getOwnerName(req);
-		event.setOrganizer(getUserByUsername(owner));
+		String owner = getLoggedInUsername(req);
+		event.setOrganizer(userDao.getUser(owner));
 
 		Event createdEvent = eventDao.addEvent(event);
 
@@ -56,16 +55,4 @@ public class CreateEventControllerServlet extends AbstractEventControllerServlet
 				.buildViewEventString(createdEvent.getId()));
 		view.forward(req, resp);
 	}
-
-	private User getUserByUsername(String username) {
-		User user = null;
-		for (User u : userDao.getUsers()) {
-			if (u.getUsername().equals(username)) {
-				user = u;
-				break;
-			}
-		}
-		return user;
-	}
-
 }

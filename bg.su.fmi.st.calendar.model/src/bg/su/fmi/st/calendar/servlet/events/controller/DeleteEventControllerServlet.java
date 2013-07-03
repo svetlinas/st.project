@@ -19,11 +19,11 @@ public class DeleteEventControllerServlet extends AbstractEventControllerServlet
 
 		Event event = getEvent(req, eventDao);
 
-		if (isOwner(req, event)) {
+		if (isLoggedInUserOwner(req, event)) {
 			eventDao.deleteEvent(event.getId());
 		} else {
 			throw new RuntimeException("Unauthorized delete attempt by User "
-					+ getOwnerName(req) + " for event " + event.getTitle());
+					+ getLoggedInUsername(req) + " for event " + event.getTitle());
 		}
 
 		// we display the MyEvents page

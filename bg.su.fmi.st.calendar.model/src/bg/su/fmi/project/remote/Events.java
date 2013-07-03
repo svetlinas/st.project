@@ -35,7 +35,7 @@ public class Events {
 
 	@EJB
 	private EventDAO eventDAO;
-	
+
 	@EJB
 	private UserDAO userDAO;
 
@@ -47,23 +47,15 @@ public class Events {
 			@FormParam("place") String place,
 			@FormParam("startDate") String startDate,
 			@FormParam("endDate") String endDate,
-			@FormParam("type") String type, 
+			@FormParam("type") String type,
 			@FormParam("details") String details,
 			@Context SecurityContext request)
-			throws ParseException {
-		
+					throws ParseException {
+
 		String username = request.getUserPrincipal().getName();
-		
-		//TODO not optimized filtering. To be done in DAO at DB level with SQL
-		User organizer = null;
-		for(User u: userDAO.getUsers()){
-			if(u.getUsername().equals(username)){
-				organizer = u;
-				break;
-			}
-		}
-		
-		Event newEvent = new Event(organizer, title, place, startDate, endDate, type, details); 
+		User organizer = userDAO.getUser(username);
+
+		Event newEvent = new Event(organizer, title, place, startDate, endDate, type, details);
 		return eventDAO.addEvent(newEvent);
 	}
 
@@ -72,16 +64,16 @@ public class Events {
 	public List<Event> getAllEvents() {
 		return eventDAO.getEvents();
 	}
-	
+
 	@GET
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<Event> getEvents(
-			@FormParam("id") 
+			@FormParam("id")
 			List<Long> id) {
 		return eventDAO.getEvents(id);
 	}
-	
+
 	@DELETE
 	@Path("{id}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -91,11 +83,11 @@ public class Events {
 		eventDAO.deleteEvent(id);
 	}
 
-	@PUT 
+	@PUT
 	@Path("{id}")
-    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_XHTML_XML})
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Event updateEvent(Event changedEvent) {
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_XHTML_XML})
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Event updateEvent(Event changedEvent) {
 		return eventDAO.updateEvent(changedEvent);
-    }
+	}
 }

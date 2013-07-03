@@ -32,7 +32,7 @@ public class ViewEventControllerServlet extends AbstractEventControllerServlet {
 		      invitationDao.getEventInvitations(event));
 		req.setAttribute(EventUtils.ATTRIBUTE_EVENT_INVITATION_LIST, invitations);
 
-		req.setAttribute(EventUtils.ATTRIBUTE_IS_OWNER, isOwner(req, event));
+		req.setAttribute(EventUtils.ATTRIBUTE_IS_OWNER, isLoggedInUserOwner(req, event));
 
 		RequestDispatcher view = req.getRequestDispatcher(EventUtils.URL_VIEW_EVENT_JSP);
 		view.forward(req, resp);

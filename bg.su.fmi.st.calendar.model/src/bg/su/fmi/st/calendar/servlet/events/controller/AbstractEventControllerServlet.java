@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
 import bg.su.fmi.st.calendar.model.entities.Event;
-import bg.su.fmi.st.calendar.model.entities.User;
 import bg.su.fmi.st.calendar.model.manager.EventDAO;
-import bg.su.fmi.st.calendar.model.manager.UserDAO;
 import bg.su.fmi.st.calendar.servlet.events.EventUtils;
 
 @SuppressWarnings("serial")
@@ -26,27 +24,12 @@ public class AbstractEventControllerServlet extends HttpServlet {
 		return resultEvent;
 	}
 
-	protected User getUser(HttpServletRequest req, UserDAO userDao) {
-		String username = req.getParameter(EventUtils.PARAMETER_USERNAME);
-		List<User> users = userDao.getUsers();
-		User resultUser = null;
-
-		for (User u : users) {
-			if (u.getUsername().equals(username)) {
-				resultUser = u;
-				break;
-			}
-		}
-
-		return resultUser;
-	}
-
-	protected String getOwnerName(HttpServletRequest request) {
+	protected String getLoggedInUsername(HttpServletRequest request) {
 		return request.getUserPrincipal().getName();
 	}
 
-	protected boolean isOwner(HttpServletRequest request, Event event) {
-		String currentUser = getOwnerName(request);
+	protected boolean isLoggedInUserOwner(HttpServletRequest request, Event event) {
+		String currentUser = getLoggedInUsername(request);
 		return event.getOrganizer().getUsername().equals(currentUser);
 	}
 }

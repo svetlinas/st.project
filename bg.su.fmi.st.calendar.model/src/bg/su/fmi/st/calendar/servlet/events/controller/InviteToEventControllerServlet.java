@@ -18,7 +18,7 @@ import bg.su.fmi.st.calendar.servlet.events.EventUtils;
 
 @SuppressWarnings("serial")
 public class InviteToEventControllerServlet extends AbstractEventControllerServlet {
-	
+
 	@EJB
 	private UserDAO userDao;
 
@@ -29,9 +29,9 @@ public class InviteToEventControllerServlet extends AbstractEventControllerServl
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		User user = getUser(req, userDao);
+		User user = getUserFromParameter(req, userDao);
 		Event event = getEvent(req, eventDao);
-		
+
 		if (user != null) {
 			EventInvitation eventInvitation = new EventInvitation(event, user);
 			eventInvitation.setResponse(InvitationResponse.Waiting);
@@ -39,9 +39,14 @@ public class InviteToEventControllerServlet extends AbstractEventControllerServl
 
 			invitationDao.addEventInvitation(eventInvitation);
 		}
-		
+
 		//we display the ViewEvent page again
 		RequestDispatcher view = req.getRequestDispatcher(EventUtils.URL_VIEW_EVENT_CONTROLLER);
 		view.forward(req, resp);
+	}
+
+	private User getUserFromParameter(HttpServletRequest req, UserDAO userDao) {
+		String username = req.getParameter(EventUtils.PARAMETER_USERNAME);
+		return userDao.getUser(username);
 	}
 }

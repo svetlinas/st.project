@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -16,11 +17,11 @@ public class UserDAO {
 	private EntityManager entityManager;
 
 	public boolean addUser(User user) {
-		for (User existingUser : getUsers()) {
-			if (existingUser.getUsername().equals(user.getUsername())) {
-				return false;
-			}
+
+		if (null != getUser(user.getUsername())) {
+			return false;
 		}
+
 		entityManager.persist(user);
 		return true;
 	}
@@ -35,8 +36,15 @@ public class UserDAO {
 		return query.getResultList();
 	}
 
-	public User getByUsername(String username) {
-		return (User) (entityManager.createNamedQuery("findUserByUsername")
-				.setParameter("username", username).getSingleResult());
+	public User getUser(String username) {
+		try {
+			Query query = entityManager.createNamedQuery("findUserByUsername");
+			query.setParameter("username", username);
+
+			return (User) query.getSingleResult();
+
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 }

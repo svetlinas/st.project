@@ -2,16 +2,22 @@ package bg.su.fmi.st.calendar.servlet.events.controller;
 
 import java.io.IOException;
 
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bg.su.fmi.st.calendar.model.entities.Event;
+import bg.su.fmi.st.calendar.model.entities.User;
+import bg.su.fmi.st.calendar.model.manager.UserDAO;
 import bg.su.fmi.st.calendar.servlet.events.EventUtils;
 
 @SuppressWarnings("serial")
-public class EditEventControllerServlet extends AbstractEventControllerServlet {
+public class CreateEventControllerServlet extends AbstractEventControllerServlet {
+
+	@EJB
+	private UserDAO userDao;
 
 	/**
 	 * For updating the data in the DB
@@ -20,7 +26,7 @@ public class EditEventControllerServlet extends AbstractEventControllerServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
 	IOException {
 
-		Event event = getEvent(req, eventDao);
+		Event event = new Event();
 
 		String title = req.getParameter(EventUtils.PARAMETER_EVENT_TITLE);
 		event.setTitle(title);
@@ -37,15 +43,29 @@ public class EditEventControllerServlet extends AbstractEventControllerServlet {
 		String endDateStr = req.getParameter(EventUtils.PARAMETER_EVENT_END_DATE);
 		event.setEndDate(endDateStr);
 
-		// type
 		String typeStr = req.getParameter(EventUtils.PARAMETER_EVENT_TYPE);
 		event.setType(typeStr);
 
-		eventDao.updateEvent(event);
+		String owner = getOwnerName(req);
+		event.setOrganizer(getUserByUsername(owner));
+
+		Event createdEvent = eventDao.addEvent(event);
 
 		// we display the view page for an event to check out the change
-		RequestDispatcher view = req.getRequestDispatcher(EventUtils.buildViewEventString(event
-				.getId()));
+		RequestDispatcher view = req.getRequestDispatcher(EventUtils
+				.buildViewEventString(createdEvent.getId()));
 		view.forward(req, resp);
 	}
+
+	private User getUserByUsername(String username) {
+		User user = null;
+		for (User u : userDao.getUsers()) {
+			if (u.getUsername().equals(username)) {
+				user = u;
+				break;
+			}
+		}
+		return user;
+	}
+
 }

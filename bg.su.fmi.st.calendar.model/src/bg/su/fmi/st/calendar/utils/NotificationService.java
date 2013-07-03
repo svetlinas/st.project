@@ -22,7 +22,7 @@ public class NotificationService {
 	private static final String MAIL_INVITATION_SUBJECT_FOR_INVITATION = "New event in Sport Events Organizer.";
 	private static final String MAIL_INVITATION_CONTENT = "Hello! You are receiving this message, because an event that you are invited to - {0} is changed. To view the updated event details please use the following link {1} . Thank You!";
 	private static final String MAIL_INVITATION_CONTENT_FOR_INVITATION = "Hello! You are receiving this message, because you are invited to a new event - {0}. To accept or decline the event please use the following link {1} . Thank You!";
-	
+
 	private static final String HOST = "smtp.gmail.com";
 
 	@Context
@@ -35,10 +35,9 @@ public class NotificationService {
 		Collection<EventInvitation> eventInvitations = invitationDao
 				.getEventInvitations(event);
 
-		// TODO: provide a real link to the event. (EDIT LENI: check if this works)
 		String baseUri = "http://localhost:8080/bg.su.fmi.st.calendar.model/";
 		String viewEventString = EventUtils.buildViewEventString(event.getId());
-		
+
 		for (EventInvitation invitation : eventInvitations) {
 			String mailText = MessageFormat.format(MAIL_INVITATION_CONTENT,
 					event.getTitle(), baseUri + viewEventString);
@@ -51,15 +50,14 @@ public class NotificationService {
 			mailSender.send(mailData);
 		}
 	}
-	
+
 	public void notifyUserForInvitation(Event event) {
 		Collection<EventInvitation> eventInvitations = invitationDao
 				.getEventInvitations(event);
 
-		// TODO: provide a real link to the event. (EDIT LENI: check if this works)
 		String baseUri = "http://localhost:8080/bg.su.fmi.st.calendar.model/";
 		String viewEventString = EventUtils.buildViewEventString(event.getId());
-		
+
 		for (EventInvitation invitation : eventInvitations) {
 			String mailText = MessageFormat.format(MAIL_INVITATION_CONTENT_FOR_INVITATION,
 					event.getTitle(), baseUri + viewEventString);

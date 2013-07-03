@@ -10,6 +10,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import bg.su.fmi.st.calendar.model.entities.User;
@@ -24,12 +25,12 @@ import bg.su.fmi.st.calendar.model.manager.UserDAO;
 
 @Path("/users")
 public class Users {
-	
+
 	@EJB
 	private UserDAO userDAO;
 
 	@POST
-	@Consumes("application/x-www-form-urlencoded")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response addUser(@FormParam("username") String username,
 			@FormParam("password") String password,
 			@FormParam("cpassword") String cpassword,
@@ -45,9 +46,9 @@ public class Users {
 		userDAO.addUser(newUser);
 		return Response.seeOther(URI.create("index.html")).build();
 	}
-	
+
 	@GET
-	public List<User> getUsers() { 
+	public List<User> getUsers() {
 		return userDAO.getUsers();
 	}
 

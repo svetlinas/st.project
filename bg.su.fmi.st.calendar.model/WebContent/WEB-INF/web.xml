@@ -86,7 +86,15 @@
 		<servlet-name>EditEventControllerServlet</servlet-name>
 		<url-pattern>/editEventController</url-pattern>
 	</servlet-mapping>
-	
+    
+    <servlet>
+        <servlet-name>CreateEventControllerServlet</servlet-name>
+        <servlet-class>bg.su.fmi.st.calendar.servlet.events.controller.CreateEventControllerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateEventControllerServlet</servlet-name>
+        <url-pattern>/createEventController</url-pattern>
+    </servlet-mapping>
 	<servlet>
 		<servlet-name>EditEventPageControllerServlet</servlet-name>
 		<servlet-class>bg.su.fmi.st.calendar.servlet.events.controller.EditEventPageControllerServlet</servlet-class>

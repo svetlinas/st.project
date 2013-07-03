@@ -18,7 +18,7 @@ public class AbstractEventControllerServlet extends HttpServlet {
 
 	@EJB
 	protected EventDAO eventDao;
-	
+
 	protected Event getEvent(HttpServletRequest req, EventDAO eventDao) {
 		Long id = Long.valueOf(req.getParameter(EventUtils.PARAMETER_EVENT_ID));
 		List<Event> events = eventDao.getEvents(Arrays.asList(new Long[] { id }));
@@ -30,19 +30,23 @@ public class AbstractEventControllerServlet extends HttpServlet {
 		String username = req.getParameter(EventUtils.PARAMETER_USERNAME);
 		List<User> users = userDao.getUsers();
 		User resultUser = null;
-	
+
 		for (User u : users) {
 			if (u.getUsername().equals(username)) {
 				resultUser = u;
 				break;
 			}
 		}
-	
+
 		return resultUser;
 	}
 
+	protected String getOwnerName(HttpServletRequest request) {
+		return request.getUserPrincipal().getName();
+	}
+
 	protected boolean isOwner(HttpServletRequest request, Event event) {
-		String currentUser = request.getUserPrincipal().getName();
+		String currentUser = getOwnerName(request);
 		return event.getOrganizer().getUsername().equals(currentUser);
 	}
 }

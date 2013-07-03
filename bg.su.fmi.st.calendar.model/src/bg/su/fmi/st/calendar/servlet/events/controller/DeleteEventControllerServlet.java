@@ -15,7 +15,7 @@ public class DeleteEventControllerServlet extends AbstractEventControllerServlet
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-	      IOException {
+	IOException {
 
 		Event event = getEvent(req, eventDao);
 
@@ -23,7 +23,7 @@ public class DeleteEventControllerServlet extends AbstractEventControllerServlet
 			eventDao.deleteEvent(event.getId());
 		} else {
 			throw new RuntimeException("Unauthorized delete attempt by User "
-			      + req.getUserPrincipal().getName() + " for event " + event.getTitle());
+					+ getOwnerName(req) + " for event " + event.getTitle());
 		}
 
 		// we display the MyEvents page

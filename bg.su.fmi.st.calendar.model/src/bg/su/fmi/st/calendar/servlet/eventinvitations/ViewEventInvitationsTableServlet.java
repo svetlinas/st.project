@@ -12,85 +12,100 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bg.su.fmi.st.calendar.model.entities.EventInvitation;
+import bg.su.fmi.st.calendar.model.entities.EventInvitation.InvitationResponse;
 import bg.su.fmi.st.calendar.model.manager.EventInvitationDAO;
 import bg.su.fmi.st.calendar.servlet.HtmlTableUtil;
 import bg.su.fmi.st.calendar.servlet.events.EventUtils;
 
 public class ViewEventInvitationsTableServlet extends HttpServlet {
 
-    private static final long serialVersionUID = 5289774875930198329L;
-    
-    private static final String[] COLUMNS = new String[]{"Event", "Status", "My Comments"};
+	private static final long serialVersionUID = 5289774875930198329L;
 
-    @EJB
-    private EventInvitationDAO eventInvitationsDAO;
+	private static final String[] COLUMNS = new String[]{"Event", "Status", "My Comments"};
 
-    private HttpServletRequest request;
-    
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	@EJB
+	private EventInvitationDAO eventInvitationsDAO;
 
-        this.request = request;
-        response.setContentType("text/html");
-        PrintWriter pw = response.getWriter();
+	private HttpServletRequest request;
 
-        pw.println("<html>");
-        pw.println("<head>");
-        pw.println("<link href=\"css/pagestyle.css\" rel=\"stylesheet\" />");
-        pw.println("<title>Invitations</title>");
-        pw.println("</head>");
-        pw.println("<body>");
-        pw.print("<h1>");
-        pw.print(getTitle());
-        pw.print("</h1>");
-        pw.println("<br>");
-        
-        displayEventInvitationsInTable(pw);
+	@Override
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        pw.println("</body></html>");
-    }
+		this.request = request;
+		response.setContentType("text/html");
+		PrintWriter pw = response.getWriter();
 
-    public List<EventInvitation> getEventInvitationsForDisplay() {
-        List<EventInvitation> allEventInvitations = eventInvitationsDAO.getAllEventInvitations();
-        String currentUsername = this.request.getRemoteUser();
+		pw.println("<html>");
+		pw.println("<head>");
+		pw.println("<link href=\"css/pagestyle.css\" rel=\"stylesheet\" />");
+		pw.println("<title>Invitations</title>");
+		pw.println("</head>");
+		pw.println("<body>");
+		pw.print("<h1>");
+		pw.print(getTitle());
+		pw.print("</h1>");
+		pw.println("<br>");
 
-        List<EventInvitation> myEventInvitations = new ArrayList<EventInvitation>();
-        for(EventInvitation e: allEventInvitations) {
-            if(e.getInvitedUser().getUsername().equals(currentUsername)){
-                myEventInvitations.add(e);
-            }
-        }
-        return myEventInvitations;
-    }
+		displayEventInvitationsInTable(pw);
 
-    public String getTitle() {
-        return "Invitations";
-    }
-    
-    private void displayEventInvitationsInTable(PrintWriter pw) {
-        List<EventInvitation> eventInvitations = getEventInvitationsForDisplay();
-        displayEventInvitationsInTable(pw, eventInvitations);
-    }
-    
-    private void displayEventInvitationsInTable(PrintWriter pw, List<EventInvitation> eventInvitations) {
-        pw.print("<table border=\"1\">");
+		pw.println("</body></html>");
+	}
 
-        HtmlTableUtil.displayColumnLabels(pw, COLUMNS);
+	public List<EventInvitation> getEventInvitationsForDisplay() {
+		List<EventInvitation> allEventInvitations = eventInvitationsDAO.getAllEventInvitations();
+		String currentUsername = this.request.getRemoteUser();
 
-        for (EventInvitation ei : eventInvitations) {
-            displayEventInvitationInRow(pw, ei);
-        }
+		List<EventInvitation> myEventInvitations = new ArrayList<EventInvitation>();
+		for(EventInvitation e: allEventInvitations) {
+			if(e.getInvitedUser().getUsername().equals(currentUsername)){
+				myEventInvitations.add(e);
+			}
+		}
+		return myEventInvitations;
+	}
 
-        pw.print("</table>");
-    }
+	public String getTitle() {
+		return "Invitations";
+	}
 
-    private void displayEventInvitationInRow(PrintWriter pw, EventInvitation eventInvitation) {
-        pw.printf("<tr>");
-        String viewEventControllerUrl = EventUtils.buildViewEventString(eventInvitation.getEvent().getId());
-        HtmlTableUtil.displayCellWithLink(pw, eventInvitation.getEvent().getTitle(), viewEventControllerUrl);
-        HtmlTableUtil.displayCell(pw, eventInvitation.getResponse().toString(), false);
-        HtmlTableUtil.displayCell(pw, eventInvitation.getComment(), false);
-        pw.printf("</tr>");
-    }
+	private void displayEventInvitationsInTable(PrintWriter pw) {
+		List<EventInvitation> eventInvitations = getEventInvitationsForDisplay();
+		displayEventInvitationsInTable(pw, eventInvitations);
+	}
 
+	private void displayEventInvitationsInTable(PrintWriter pw, List<EventInvitation> eventInvitations) {
+		pw.print("<table border=\"1\">");
+
+		HtmlTableUtil.displayColumnLabels(pw, COLUMNS);
+
+		for (EventInvitation ei : eventInvitations) {
+			displayEventInvitationInRow(pw, ei);
+		}
+
+		pw.print("</table>");
+	}
+
+	private void displayEventInvitationInRow(PrintWriter pw, EventInvitation eventInvitation) {
+		pw.printf("<tr>");
+		String viewEventControllerUrl = EventUtils.buildViewEventString(eventInvitation.getEvent().getId());
+		HtmlTableUtil.displayCellWithLink(pw, eventInvitation.getEvent().getTitle(), viewEventControllerUrl);
+
+		InvitationResponse response = eventInvitation.getResponse();
+		displayColoredResponse(pw, response);
+
+		HtmlTableUtil.displayCell(pw, eventInvitation.getComment(), false);
+		pw.printf("</tr>");
+	}
+
+	private void displayColoredResponse(PrintWriter pw, InvitationResponse response) {
+		String color = HtmlTableUtil.COLOR_YELLOW;
+		if(response == InvitationResponse.YES) {
+			color = HtmlTableUtil.COLOR_GREEN;
+		}else if(response == InvitationResponse.NO) {
+			color = HtmlTableUtil.COLOR_RED;
+		}
+
+		HtmlTableUtil.displayCellWithColor(pw, response.toString(), color);
+	}
 }

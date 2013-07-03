@@ -89,7 +89,15 @@
 	                </form>
 				</td>
 				<% } else {	%>
-				<td><%=invitation.getResponse()%></td>
+				<% InvitationResponse invitationResponse = invitation.getResponse();
+			        String color = "yellow";
+			     if(invitationResponse == InvitationResponse.YES){
+			   	   color = "CCFF66";//light green
+			     }else if(invitationResponse == InvitationResponse.NO){
+			   	  color = "red";
+			     }
+				%>
+				<td><font color=<%=color%>><%=invitationResponse %></font></td>
 				<% } %>
 				<td><%=invitation.getComment()%></td>
 			</tr>
